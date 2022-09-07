@@ -1,12 +1,16 @@
 package com.kb_hackathon.plovo.domain;
 
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 
+@Builder
 @Entity
 @Getter
+@AllArgsConstructor
 @NoArgsConstructor
 @Table
 public class Mountain {
@@ -31,6 +35,5 @@ public class Mountain {
     @Column(name = "plovo_weight")
     private String plovoWeight;
 
-    @Column(name = "distance")
     private String distance;
 }

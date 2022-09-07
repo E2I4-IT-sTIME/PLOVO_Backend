@@ -1,12 +1,16 @@
 package com.kb_hackathon.plovo.domain;
 
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 
+@Builder
 @Entity
 @Getter
+@AllArgsConstructor
 @NoArgsConstructor
 @Table
 public class UserRecord {
@@ -16,16 +20,15 @@ public class UserRecord {
     @Column(name = "id")
     private Long id;
 
-    @Column(name = "user_id")
+    @ManyToOne
+    @JoinColumn(name = "user_id")
     private User user;
 
-    @Column(name = "date")
     private String date;
 
     @Column(name = "plovo_time")
     private String plovoTime;
 
-    @Column(name = "weight")
     private String weight;
 
     @Column(name = "m_name")
