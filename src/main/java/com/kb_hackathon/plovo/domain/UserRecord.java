@@ -29,7 +29,9 @@ public class UserRecord {
     @Column(name = "plovo_time")
     private String plovoTime;
 
-    private String weight;
+    private Double weight;
+
+    private String distance;
 
     @Column(name = "m_name")
     private String m_name;
