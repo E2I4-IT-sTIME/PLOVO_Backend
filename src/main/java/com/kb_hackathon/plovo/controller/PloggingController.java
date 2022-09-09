@@ -31,12 +31,12 @@ public class PloggingController {
     }
 
     @PostMapping("/plog/search")
-    public List<Mountain> search(@RequestParam String mName){
+    public List<Mountain> search(@RequestParam("mName") String mName){
         return mountainService.search(mName);
     }
 
     @GetMapping("/plog/start")
-    public GetPlovoMountainRes plogStart(@RequestParam String mName){  // 산 선택해서 산이름 넘어오면
+    public GetPlovoMountainRes plogStart(@RequestParam("mName") String mName){  // 산 선택해서 산이름 넘어오면
         return mountainService.plogStart(mName);
     }
 

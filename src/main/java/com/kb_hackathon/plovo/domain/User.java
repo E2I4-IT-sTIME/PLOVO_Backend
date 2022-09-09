@@ -30,4 +30,8 @@ public class User {
     @CreationTimestamp
     private Timestamp createDate;
 
+    public void setImage(String image){
+        this.image = image;
+    }
+
 }
