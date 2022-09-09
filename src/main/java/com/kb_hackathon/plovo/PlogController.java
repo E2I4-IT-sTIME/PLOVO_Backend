@@ -1,13 +1,10 @@
 package com.kb_hackathon.plovo;
 
-import com.kb_hackathon.plovo.domain.User;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-
-import java.security.Principal;
 
 @RestController
 @RequiredArgsConstructor
@@ -17,21 +14,26 @@ public class PlogController {
 
     // 플로보로부터 무게 받아오기 (ex 아두이노)
     @GetMapping("/weight")
-    public void plovoWeight(@RequestParam(value = "user_id") Long user_id, @RequestParam(value = "plovo_id") Long plovo_id, @RequestParam(value = "weight") Double weight) {
-        plogService.plovoWeight(user_id, plovo_id, weight);
+    public void plovoWeight(@RequestParam(value = "user_id") Long userRecord_id, @RequestParam(value = "plovo_id") Long plovo_id, @RequestParam(value = "weight") Double weight) {
+        plogService.plovoWeight(userRecord_id, plovo_id, weight);
     }
 
     // 플로보 완료 api (무게 페이지)
     @GetMapping("/auth/plog/weight")
-    public Double plovoWeight(@RequestParam(value = "plovo_id") Long plovo_id, @RequestParam(value = "time") String time, Authentication authentication) {
-        PrincipalDetails principalDetails = (PrincipalDetails) authentication.getPrincipal();
-        Double weight = plogService.plovoWeight(principalDetails.getUser(), time, plovo_id);
+    public Double plovoWeight(@RequestParam(value = "user_id") Long userRecord_id, @RequestParam(value = "time") String time, Authentication authentication) {
+        Double weight = plogService.endWeight(userRecord_id, time);
         return weight;
     }
 
     // 플로보 위치 확인 api
     @GetMapping("/auth/plog/site")
+    public String plovoSite(@RequestParam(value = "plovo_id") Long plovo_id) {
+        return plogService.plovoSite(plovo_id);
+    }
 
     // 종료 api
     @GetMapping("/auth/plog/end")
+    public EndDtoRes end(@RequestParam(value = "user_id") Long userRecord_id) {
+        return plogService.end(userRecord_id);
+    }
 }
