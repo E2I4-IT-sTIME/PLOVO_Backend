@@ -17,8 +17,7 @@ public class Mountain {
     @Column(name = "id")
     private Long id;
 
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "plovo")
+    @OneToOne(mappedBy = "mountain", cascade = CascadeType.ALL)
     private Plovo plovo;
 
     @Column(name = "m_name")

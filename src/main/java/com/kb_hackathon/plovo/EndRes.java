@@ -5,7 +5,7 @@ import lombok.Builder;
 import java.util.List;
 
 @Builder
-public class EndDtoRes {
+public class EndRes {
 
     private String m_name;
     private String date;

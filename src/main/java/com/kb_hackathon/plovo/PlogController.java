@@ -14,13 +14,13 @@ public class PlogController {
 
     // 플로보로부터 무게 받아오기 (ex 아두이노)
     @GetMapping("/weight")
-    public void plovoWeight(@RequestParam(value = "user_id") Long userRecord_id, @RequestParam(value = "plovo_id") Long plovo_id, @RequestParam(value = "weight") Double weight) {
+    public void plovoWeight(@RequestParam(value = "userRecord_id") Long userRecord_id, @RequestParam(value = "plovo_id") Long plovo_id, @RequestParam(value = "weight") Double weight) {
         plogService.plovoWeight(userRecord_id, plovo_id, weight);
     }
 
     // 플로보 완료 api (무게 페이지)
     @GetMapping("/auth/plog/weight")
-    public Double plovoWeight(@RequestParam(value = "user_id") Long userRecord_id, @RequestParam(value = "time") String time, Authentication authentication) {
+    public Double plovoWeight(@RequestParam(value = "userRecord_id") Long userRecord_id, @RequestParam(value = "time") String time, Authentication authentication) {
         Double weight = plogService.endWeight(userRecord_id, time);
         return weight;
     }
@@ -33,7 +33,7 @@ public class PlogController {
 
     // 종료 api
     @GetMapping("/auth/plog/end")
-    public EndDtoRes end(@RequestParam(value = "user_id") Long userRecord_id) {
+    public EndRes end(@RequestParam(value = "userRecord_id") Long userRecord_id) {
         return plogService.end(userRecord_id);
     }
 }

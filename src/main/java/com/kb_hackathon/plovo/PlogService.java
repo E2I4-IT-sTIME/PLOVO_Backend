@@ -1,7 +1,7 @@
 package com.kb_hackathon.plovo;
 
+import com.kb_hackathon.plovo.domain.Mountain;
 import com.kb_hackathon.plovo.domain.Plovo;
-import com.kb_hackathon.plovo.domain.User;
 import com.kb_hackathon.plovo.domain.UserRecord;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -18,6 +18,7 @@ public class PlogService {
 
     private final UserRecordRepository userRecordRepository;
     private final PlovoRepository plovoRepository;
+    private final MountainRepository mountainRepository;
 
     // 플로보로부터 무게 받아오기 (ex 아두이노)
     @Transactional
@@ -49,13 +50,14 @@ public class PlogService {
         return plovo.get().getImg();
     }
 
-    public EndDtoRes end(Long userRecord_id) {
+    public EndRes end(Long userRecord_id) {
         Optional<UserRecord> userRecord = userRecordRepository.findById(userRecord_id);
         Optional<Plovo> plovo = plovoRepository.findById(userRecord.get().getPlovoId());
+        Optional<Mountain> mountain = mountainRepository.findById(plovo.get().getMountain().getId());
 
-        List<String> weights = plovoRepository.monthsAsc(plovo.get().getId());
+        List<String> weights = plovoRepository.monthsAsc(mountain.get().getId());
 
-        EndDtoRes endDtoRes = EndDtoRes.builder()
+        EndRes endRes = EndRes.builder()
                 .m_name(plovo.get().getMountain().getMName())
                 .date(userRecord.get().getDate().toString())
                 .distance(plovo.get().getMountain().getDistance())
@@ -63,7 +65,7 @@ public class PlogService {
                 .weight(userRecord.get().getWeight())
                 .weights(weights).build();
 
-        return endDtoRes;
+        return endRes;
     }
 
 }

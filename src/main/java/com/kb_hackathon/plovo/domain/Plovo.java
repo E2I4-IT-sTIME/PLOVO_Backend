@@ -21,7 +21,8 @@ public class Plovo {
     @Column(name = "id")
     private Long id;
 
-    @OneToOne(mappedBy = "plovo")
+    @OneToOne
+    @JoinColumn(name = "mountain_id")
     private Mountain mountain;
 
     private Double weight; // 최종 무게
@@ -32,5 +33,5 @@ public class Plovo {
     private String img;
 
     @DateTimeFormat(pattern="yyyy-MM")
-    private Timestamp date;
+    private String date;
 }
