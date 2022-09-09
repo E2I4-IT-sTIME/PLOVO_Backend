@@ -1,15 +1,14 @@
 package com.kb_hackathon.plovo.domain;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import java.sql.Timestamp;
+import lombok.*;
+import org.hibernate.annotations.CreationTimestamp;
 
 import javax.persistence.*;
 
 @Builder
 @Entity
-@Getter
+@Data
 @AllArgsConstructor
 @NoArgsConstructor
 @Table
@@ -20,17 +19,20 @@ public class UserRecord {
     @Column(name = "id")
     private Long id;
 
+    @Column(name = "plovo_id")
+    private Long plovoId;
+
     @ManyToOne
     @JoinColumn(name = "user_id")
     private User user;
 
-    private String date;
+    @CreationTimestamp
+    private Timestamp date;
 
-    @Column(name = "plovo_time")
-    private String plovoTime;
+    @Column(name = "time")
+    private String time; // 플로깅 걸린 시간
 
-    private String weight;
+    private Double weight; // 플로보에 담은 무게
 
-    @Column(name = "m_name")
     private String m_name;
 }

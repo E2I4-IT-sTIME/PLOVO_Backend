@@ -1,15 +1,12 @@
 package com.kb_hackathon.plovo.domain;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import javax.persistence.*;
 
 @Builder
 @Entity
-@Getter
+@Data
 @AllArgsConstructor
 @NoArgsConstructor
 @Table
@@ -20,7 +17,8 @@ public class Plovo {
     @Column(name = "id")
     private Long id;
 
-    private String site;
+    @OneToOne(mappedBy = "plovo")
+    private Mountain mountain;
 
     private Double weight; // 최종 무게
 

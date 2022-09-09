@@ -1,15 +1,12 @@
 package com.kb_hackathon.plovo.domain;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import javax.persistence.*;
 
 @Builder
 @Entity
-@Getter
+@Data
 @AllArgsConstructor
 @NoArgsConstructor
 @Table
@@ -20,6 +17,10 @@ public class Mountain {
     @Column(name = "id")
     private Long id;
 
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "plovo")
+    private Plovo plovo;
+
     @Column(name = "m_name")
     private String mName;
 
@@ -28,12 +29,6 @@ public class Mountain {
 
     @Column(name = "map_img")
     private String mapImg;
-
-    @Column(name = "plovo_img")
-    private String plovoImg;
-
-    @Column(name = "plovo_weight")
-    private String plovoWeight;
 
     private String distance;
 }
