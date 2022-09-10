@@ -31,6 +31,16 @@ dependencies {
     // https://mvnrepository.com/artifact/io.springfox/springfox-swagger2
     implementation group: 'io.springfox', name: 'springfox-swagger2', version: '2.9.2'
 
+    //spring-cloud-starter-aws
+    compileOnly 'org.springframework.cloud:spring-cloud-starter-aws:2.0.2.RELEASE'
+    implementation platform('com.amazonaws:aws-java-sdk-bom:1.11.228')
+    implementation 'com.amazonaws:aws-java-sdk-s3'
+    // https://mvnrepository.com/artifact/commons-io/commons-io
+    implementation 'commons-io:commons-io:2.6'
+
+    // https://mavenlibs.com/maven/dependency/commons-fileupload/commons-fileupload
+    implementation 'commons-fileupload:commons-fileupload:1.4'
+
     compileOnly 'org.projectlombok:lombok'
     developmentOnly 'org.springframework.boot:spring-boot-devtools'
     runtimeOnly 'org.mariadb.jdbc:mariadb-java-client'

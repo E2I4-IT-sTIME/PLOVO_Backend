@@ -28,6 +28,8 @@ public class UserRecord {
 
     @CreationTimestamp
     private Timestamp date;
+    
+    private String distance;
 
     @Column(name = "time")
     private String time; // 플로깅 걸린 시간
