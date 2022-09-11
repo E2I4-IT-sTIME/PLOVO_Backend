@@ -1,8 +1,12 @@
-package com.kb_hackathon.plovo;
+package com.kb_hackathon.plovo.service;
 
 import com.kb_hackathon.plovo.domain.Mountain;
 import com.kb_hackathon.plovo.domain.Plovo;
 import com.kb_hackathon.plovo.domain.UserRecord;
+import com.kb_hackathon.plovo.dto.EndRes;
+import com.kb_hackathon.plovo.repository.MountainRepository;
+import com.kb_hackathon.plovo.repository.PlovoRepository;
+import com.kb_hackathon.plovo.repository.UserRecordRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 

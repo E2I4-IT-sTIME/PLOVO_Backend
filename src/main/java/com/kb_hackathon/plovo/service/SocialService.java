@@ -1,11 +1,11 @@
-package com.kb_hackathon.plovo;
+package com.kb_hackathon.plovo.service;
 
-import com.kb_hackathon.plovo.domain.User;
+import com.kb_hackathon.plovo.dto.SocialRes;
+import com.kb_hackathon.plovo.repository.UserRecordRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor

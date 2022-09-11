@@ -1,6 +1,8 @@
 package com.kb_hackathon.plovo.service;
 
 import com.kb_hackathon.plovo.domain.User;
+import com.kb_hackathon.plovo.dto.RecordRes;
+import com.kb_hackathon.plovo.repository.UserRecordRepository;
 import com.kb_hackathon.plovo.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -8,6 +10,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
+import java.util.List;
 import java.util.Optional;
 
 @RequiredArgsConstructor
@@ -15,6 +18,7 @@ import java.util.Optional;
 public class UserService {
 
     private final UserRepository userRepository;
+    private final UserRecordRepository userRecordRepository;
     private final S3Uploader s3Uploader;
 
     @Transactional
@@ -30,5 +34,21 @@ public class UserService {
     public void addImage(MultipartFile multipartFile, User user) throws IOException {
         String r = s3Uploader.upload(user.getId(), multipartFile, "user");
         System.out.println(r);
+    }
+
+    public RecordRes myRecord(int user_id) {
+        Optional<User> user = userRepository.findById(user_id);
+
+        List<String> time = userRecordRepository.timesAsc(user.get().getId());
+        List<String> weight = userRecordRepository.weightsAsc(user.get().getId());
+
+        RecordRes recordRes = RecordRes.builder()
+                .username(user.get().getUsername())
+                .profileImg(user.get().getImage())
+                .time(time)
+                .weight(weight)
+                .build();
+
+        return recordRes;
     }
 }

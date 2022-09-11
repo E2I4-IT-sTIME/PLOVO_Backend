@@ -1,4 +1,4 @@
-package com.kb_hackathon.plovo;
+package com.kb_hackathon.plovo.dto;
 
 import lombok.Builder;
 

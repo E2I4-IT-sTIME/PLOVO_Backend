@@ -1,16 +1,47 @@
-package com.kb_hackathon.plovo;
+package com.kb_hackathon.plovo.controller;
 
+import com.kb_hackathon.plovo.service.PlogService;
+import com.kb_hackathon.plovo.domain.Mountain;
+import com.kb_hackathon.plovo.dto.EndRes;
+import com.kb_hackathon.plovo.dto.GetHomeRes;
+import com.kb_hackathon.plovo.dto.GetMountainRes;
+import com.kb_hackathon.plovo.dto.GetPlovoMountainRes;
+import com.kb_hackathon.plovo.service.MountainService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+
+import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
 public class PlogController {
 
     private final PlogService plogService;
+    private final MountainService mountainService;
+
+    @GetMapping("/home")
+    public GetHomeRes home(){
+        return mountainService.home();
+    }
+
+    @GetMapping("/plog/recommend")
+    public List<GetMountainRes> recommend(){
+        return mountainService.recommend();
+    }
+
+    @PostMapping("/plog/search")
+    public List<Mountain> search(@RequestParam("mName") String mName){
+        return mountainService.search(mName);
+    }
+
+    @GetMapping("/plog/start")
+    public GetPlovoMountainRes plogStart(@RequestParam("mName") String mName){  // 산 선택해서 산이름 넘어오면
+        return mountainService.plogStart(mName);
+    }
 
     // 플로보로부터 무게 받아오기 (ex 아두이노)
     @GetMapping("/weight")
