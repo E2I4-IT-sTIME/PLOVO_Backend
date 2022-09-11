@@ -44,7 +44,7 @@ public class S3Uploader {
         user.get().setImage(uploadImageUrl);
         removeNewFile(uploadFile);
 
-        return "모임 생성 및 사진 저장 성공";
+        return "유저 사진 저장 성공";
     }
 
     // 업로드하기

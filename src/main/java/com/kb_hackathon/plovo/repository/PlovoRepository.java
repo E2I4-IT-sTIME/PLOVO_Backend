@@ -1,4 +1,4 @@
-package com.kb_hackathon.plovo;
+package com.kb_hackathon.plovo.repository;
 
 import com.kb_hackathon.plovo.domain.Plovo;
 import com.kb_hackathon.plovo.domain.UserRecord;

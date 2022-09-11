@@ -1,12 +1,14 @@
 package com.kb_hackathon.plovo.service;
 
 import com.kb_hackathon.plovo.domain.Mountain;
+import com.kb_hackathon.plovo.domain.Plovo;
 import com.kb_hackathon.plovo.domain.UserRecord;
 import com.kb_hackathon.plovo.dto.GetHomeRes;
 import com.kb_hackathon.plovo.dto.GetMountainRes;
 import com.kb_hackathon.plovo.dto.GetPlovoMountainRes;
 import com.kb_hackathon.plovo.dto.GetRecentUserRecord;
 import com.kb_hackathon.plovo.repository.MountainRepository;
+import com.kb_hackathon.plovo.repository.PlovoRepository;
 import com.kb_hackathon.plovo.repository.UserRecordRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -14,6 +16,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @RequiredArgsConstructor
 @Service
@@ -21,6 +24,7 @@ public class MountainService {
 
     private final MountainRepository mountainRepository;
     private final UserRecordRepository userRecordRepository;
+    private final PlovoRepository plovoRepository;
 
     @Transactional(readOnly = true)
     public GetHomeRes home(){
@@ -33,17 +37,18 @@ public class MountainService {
             GetMountainRes getMountainRes1 = GetMountainRes.builder()
                     .mName(m.getMName())
                     .mImage(m.getMainImg())
-                    .weight(m.getPlovoWeight()).build();
+                    .weight(m.getPlovo().getWeight()).build();
             getMountainRes.add(getMountainRes1);
         }
         List<GetRecentUserRecord> getRecentUserRecords = new ArrayList<>();
         for (UserRecord record : userRecords){
-            Mountain mountain = mountainRepository.findByMName(record.getM_name());
+            Optional<Plovo> plovo = plovoRepository.findById(record.getPlovoId());
+            Mountain mountain = mountainRepository.findByMName(plovo.get().getMountain().getMName());
             GetRecentUserRecord getRecentPlovo = GetRecentUserRecord.builder()
                     .distance(record.getDistance())
-                    .plovoTime(record.getPlovoTime())
+                    .plovoTime(record.getTime())
                     .weight(record.getWeight())
-                    .mName(record.getM_name())
+                    .mName(mountain.getMName())
                     .mainImg(mountain.getMainImg()).build();
             getRecentUserRecords.add(getRecentPlovo);
 
@@ -64,7 +69,7 @@ public class MountainService {
             GetMountainRes getMountainRes = GetMountainRes.builder()
                     .mName(m.getMName())
                     .mImage(m.getMainImg())
-                    .weight(m.getPlovoWeight()).build();
+                    .weight(m.getPlovo().getWeight()).build();
             getMountainResList.add(getMountainRes);
         }
         return getMountainResList;
@@ -82,7 +87,7 @@ public class MountainService {
                 .mName(mountain.getMName())
                 .mapImg(mountain.getMapImg())
                 .distance(mountain.getDistance())
-                .plovoWeight(mountain.getPlovoWeight()).build();
+                .plovoWeight(mountain.getPlovo().getWeight()).build();
         return getPlovoMountainRes;
 
     }

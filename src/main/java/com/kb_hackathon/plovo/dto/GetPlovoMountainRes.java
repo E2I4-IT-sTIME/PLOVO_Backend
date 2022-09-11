@@ -13,6 +13,6 @@ import lombok.NoArgsConstructor;
 public class GetPlovoMountainRes {
     private String mName;
     private String mapImg;
-    private String distance;
+    private Float distance;
     private Double plovoWeight;
 }

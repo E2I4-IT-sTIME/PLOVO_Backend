@@ -1,9 +1,9 @@
-package com.kb_hackathon.plovo;
+package com.kb_hackathon.plovo.controller;
 
+import com.kb_hackathon.plovo.service.SocialService;
+import com.kb_hackathon.plovo.dto.SocialRes;
 import lombok.RequiredArgsConstructor;
-import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
