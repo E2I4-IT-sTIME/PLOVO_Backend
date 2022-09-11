@@ -8,6 +8,6 @@ import java.util.List;
 
 public interface UserRecordRepository extends JpaRepository<UserRecord, Long> {
 
-    @Query(value = "SELECT * FROM USERRECORD LIMIT 5 ORDER BY createDate DESC", nativeQuery = true)
+    @Query(value = "SELECT * FROM UserRecord ORDER BY createDate DESC LIMIT 5", nativeQuery = true)
     List<UserRecord> mfindRecent();
 }

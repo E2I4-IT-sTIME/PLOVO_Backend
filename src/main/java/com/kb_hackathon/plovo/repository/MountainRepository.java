@@ -8,10 +8,10 @@ import java.util.List;
 
 public interface MountainRepository extends JpaRepository<Mountain, Long> {
 
-    @Query(value = "SELECT * FROM MOUNTAIN LIMIT 5 ORDER BY plovoWeight DESC", nativeQuery = true)
+    @Query(value = "SELECT * FROM mountain ORDER BY plovoWeight DESC LIMIT 5", nativeQuery = true)
     List<Mountain> mRecommend();
 
-    @Query(value = "SELECT * FROM MOUNTAIN WHERE mName like %mName = :mName%", nativeQuery = true)
+    @Query(value = "SELECT * FROM mountain WHERE mName like %mName = :mName%", nativeQuery = true)
     List<Mountain> mfindByMName(String mName);
 
     Mountain findByMName(String mName);
