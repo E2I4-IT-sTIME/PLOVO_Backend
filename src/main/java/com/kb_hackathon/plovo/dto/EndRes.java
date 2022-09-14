@@ -12,11 +12,11 @@ public class EndRes {
     @ApiModelProperty(value = "플로깅 날짜")
     private String date;
     @ApiModelProperty(value = "플로깅 거리", example = "0")
-    private Float distance;
+    private String distance;
     @ApiModelProperty(value = "플로깅 시간")
     private String time;
     @ApiModelProperty(value = "플로깅한 무게", example = "0")
-    private Double weight;
+    private String weight;
     @ApiModelProperty(value = "6개월치 무게 수치")
     private List<String> weights; // 6개월치 무게 수치
 }

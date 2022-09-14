@@ -33,7 +33,7 @@ public class PlogController {
             @ApiImplicitParam(name = "plovo_id", value = "플로보 아이디", required = true, dataType = "long"),
             @ApiImplicitParam(name = "weight", value = "플로깅 무게", required = true, dataType = "double")
     })
-    public void plovoWeight(@RequestParam(value = "userRecord_id") Long userRecord_id, @RequestParam(value = "plovo_id") Long plovo_id, @RequestParam(value = "weight") Double weight) {
+    public void plovoWeight(@RequestParam(value = "userRecord_id") Long userRecord_id, @RequestParam(value = "plovo_id") Long plovo_id, @RequestParam(value = "weight") String weight) {
         plogService.plovoWeight(userRecord_id, plovo_id, weight);
     }
 
@@ -44,8 +44,8 @@ public class PlogController {
             @ApiImplicitParam(name = "userRecord_id", value = "userRecord 아이디", required = true, dataType = "long"),
             @ApiImplicitParam(name = "time", value = "플로깅 시간", required = true, dataType = "string")
     })
-    public Double plovoWeight(@RequestParam(value = "userRecord_id") Long userRecord_id, @RequestParam(value = "time") String time, Authentication authentication) {
-        Double weight = plogService.endWeight(userRecord_id, time);
+    public String plovoWeight(@RequestParam(value = "userRecord_id") Long userRecord_id, @RequestParam(value = "time") String time, Authentication authentication) {
+        String weight = plogService.endWeight(userRecord_id, time);
         return weight;
     }
 
