@@ -24,36 +24,9 @@ import java.util.List;
 public class PlogController {
 
     private final PlogService plogService;
-    private final MountainService mountainService;
-
-    @GetMapping("/home")
-    @ApiOperation(value = "홈 화면 API")
-    public GetHomeRes home(){
-        return mountainService.home();
-    }
-
-    @GetMapping("/plog/recommend")
-    @ApiOperation(value = "산 추천 API")
-    public List<GetMountainRes> recommend(){
-        return mountainService.recommend();
-    }
-
-    @PostMapping("/plog/search")
-    @ApiOperation(value = "산 검색 API")
-    @ApiImplicitParam(name = "mName", value = "산 이름", required = true, dataType = "string")
-    public List<Mountain> search(@RequestParam("mName") String mName){
-        return mountainService.search(mName);
-    }
-
-    @GetMapping("/plog/start")
-    @ApiOperation(value = "플로깅 시작 페이지 API")
-    @ApiImplicitParam(name = "mName", value = "산 이름", required = true, dataType = "string")
-    public GetPlovoMountainRes plogStart(@RequestParam("mName") String mName){  // 산 선택해서 산이름 넘어오면
-        return mountainService.plogStart(mName);
-    }
 
     // 플로보로부터 무게 받아오기 (ex 아두이노)
-    @GetMapping("/weight")
+    @GetMapping("/plovo/weight")
     @ApiOperation(value = "플로보에게 무게 받아오기 API")
     @ApiImplicitParams({
             @ApiImplicitParam(name = "userRecord_id", value = "userRecord 아이디", required = true, dataType = "long"),

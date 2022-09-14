@@ -68,7 +68,7 @@ public class AuthController {
         return ResponseEntity.ok().headers(headers).body("success");
     }
 
-    @PostMapping("/{id}/name")
+    @PostMapping("/join/{id}/username")
     @ApiOperation(value = "추가정보입력(이름) API")
     @ApiImplicitParams({
             @ApiImplicitParam(name = "id", value = "유저 아이디", paramType = "path", required = true, dataType = "long"),
@@ -78,7 +78,7 @@ public class AuthController {
         userService.addUsername(id, name);
     }
 
-    @PostMapping("/{id}/profileImage")
+    @PostMapping("/join/{id}/image")
     @ApiOperation(value = "추가정보입력(이미지) API")
     @ApiImplicitParams({
             @ApiImplicitParam(name = "id", value = "유저 아이디", paramType = "path", required = true, dataType = "long"),
