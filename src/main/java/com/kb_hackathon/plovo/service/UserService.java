@@ -1,5 +1,6 @@
 package com.kb_hackathon.plovo.service;
 
+import com.kb_hackathon.plovo.config.S3Uploader;
 import com.kb_hackathon.plovo.domain.User;
 import com.kb_hackathon.plovo.dto.RecordRes;
 import com.kb_hackathon.plovo.repository.UserRecordRepository;

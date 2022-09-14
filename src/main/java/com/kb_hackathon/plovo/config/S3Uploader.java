@@ -1,4 +1,4 @@
-package com.kb_hackathon.plovo.service;
+package com.kb_hackathon.plovo.config;
 
 import com.amazonaws.services.s3.AmazonS3Client;
 import com.amazonaws.services.s3.model.CannedAccessControlList;
