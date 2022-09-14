@@ -52,8 +52,8 @@ public class SecurityConfig {
         public void configure(HttpSecurity http) throws Exception {
             AuthenticationManager authenticationManager = http.getSharedObject(AuthenticationManager.class);
             http
-                    .addFilter(corsFilter)
-                    .addFilterBefore(new JwtAuthorizationFilter(authenticationManager, userRepository), UsernamePasswordAuthenticationFilter.class);
+                    .addFilter(corsFilter);
+//                    .addFilterBefore(new JwtAuthorizationFilter(authenticationManager, userRepository), UsernamePasswordAuthenticationFilter.class);
         }
     }
 }

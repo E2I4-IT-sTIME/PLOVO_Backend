@@ -19,7 +19,7 @@ public class GetPlovoMountainRes {
     @ApiModelProperty(value = "지도 사진")
     private String mapImg;
     @ApiModelProperty(value = "거리", example = "0")
-    private Float distance;
+    private String distance;
     @ApiModelProperty(value = "플로보 무게", example = "0")
-    private Double plovoWeight;
+    private String plovoWeight;
 }

@@ -26,7 +26,7 @@ public class PlogService {
 
     // 플로보로부터 무게 받아오기 (ex 아두이노)
     @Transactional
-    public Double plovoWeight(Long userRecord_id, Long plovo_id, Double weight) {
+    public String plovoWeight(Long userRecord_id, Long plovo_id, String weight) {
         LocalDate now = LocalDate.now();
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM");
         String formatedNow = now.format(formatter);
@@ -41,7 +41,7 @@ public class PlogService {
     }
 
     @Transactional
-    public Double endWeight(Long userRecord_id, String time) {
+    public String endWeight(Long userRecord_id, String time) {
         Optional<UserRecord> userRecord = userRecordRepository.findById(userRecord_id);
         userRecord.get().setTime(time);
 

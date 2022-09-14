@@ -34,5 +34,5 @@ public class UserRecord {
     @Column(name = "time")
     private String time; // 플로깅 걸린 시간
 
-    private Double weight; // 플로보에 담은 무게
+    private String weight; // 플로보에 담은 무게
 }

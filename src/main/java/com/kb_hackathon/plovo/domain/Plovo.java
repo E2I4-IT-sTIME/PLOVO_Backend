@@ -25,10 +25,10 @@ public class Plovo {
     @JoinColumn(name = "mountain_id")
     private Mountain mountain;
 
-    private Double weight; // 최종 무게
+    private String weight; // 최종 무게
 
     @Column(name = "current_weight")
-    private Double currentWeight; // 현재 측정된 무게 -> 사용x 필드?
+    private String currentWeight; // 현재 측정된 무게 -> 사용x 필드?
 
     private String img;
 

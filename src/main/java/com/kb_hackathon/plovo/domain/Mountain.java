@@ -29,5 +29,5 @@ public class Mountain {
     @Column(name = "map_img")
     private String mapImg;
 
-    private Float distance;
+    private String distance;
 }

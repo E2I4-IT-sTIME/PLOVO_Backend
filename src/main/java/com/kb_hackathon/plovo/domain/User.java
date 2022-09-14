@@ -1,6 +1,7 @@
 package com.kb_hackathon.plovo.domain;
 
 import lombok.*;
+import org.hibernate.annotations.ColumnDefault;
 import org.hibernate.annotations.CreationTimestamp;
 
 import javax.persistence.*;
@@ -20,7 +21,7 @@ public class User {
 
     private String k_username; // 소셜로그인에서 받아온 유저네임
 
-    @Column(nullable = false)
+    @Column(nullable = true)
     private String username; // 서비스 내의 유저네임
 
     private String email;
@@ -29,7 +30,8 @@ public class User {
 
     private String role;
 
-    private Boolean status;
+    @ColumnDefault("'ACTIVE'")
+    private String status;
 
     @CreationTimestamp
     private Timestamp createDate;
@@ -45,6 +47,5 @@ public class User {
         this.email = email;
         this.profileImg = profileImg;
         this.role = role;
-        this.status = Boolean.TRUE;
     }
 }
