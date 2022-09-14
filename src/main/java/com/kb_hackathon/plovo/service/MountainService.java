@@ -2,6 +2,7 @@ package com.kb_hackathon.plovo.service;
 
 import com.kb_hackathon.plovo.domain.Mountain;
 import com.kb_hackathon.plovo.domain.Plovo;
+import com.kb_hackathon.plovo.domain.User;
 import com.kb_hackathon.plovo.domain.UserRecord;
 import com.kb_hackathon.plovo.dto.GetHomeRes;
 import com.kb_hackathon.plovo.dto.GetMountainRes;
@@ -80,14 +81,22 @@ public class MountainService {
         return mountainRepository.mfindBymName(mName);
     }
 
-    @Transactional(readOnly = true)
-    public GetPlovoMountainRes plogStart(String mName){
+    @Transactional
+    public GetPlovoMountainRes plogStart(String mName, User user){
         Mountain mountain = mountainRepository.findBymName(mName);
         GetPlovoMountainRes getPlovoMountainRes = GetPlovoMountainRes.builder()
                 .mName(mountain.getMName())
                 .mapImg(mountain.getMapImg())
                 .distance(mountain.getDistance())
                 .plovoWeight(mountain.getPlovo().getWeight()).build();
+
+        Plovo plovo = plovoRepository.findByMountain(mountain.getId());
+
+        UserRecord userRecord = UserRecord.builder()
+                .user(user)
+                .plovoId(plovo.getId())
+                .distance(mountain.getDistance()).build();
+
         return getPlovoMountainRes;
 
     }

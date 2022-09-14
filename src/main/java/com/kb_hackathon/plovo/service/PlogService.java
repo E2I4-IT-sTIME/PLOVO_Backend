@@ -15,6 +15,7 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.Optional;
+import java.util.Random;
 
 @Service
 @RequiredArgsConstructor
@@ -44,6 +45,11 @@ public class PlogService {
     public String endWeight(Long userRecord_id, String time) {
         Optional<UserRecord> userRecord = userRecordRepository.findById(userRecord_id);
         userRecord.get().setTime(time);
+
+        Random random = new Random();
+        float randomNum = (float)(Math.random() * 201 ) + 100;
+
+        userRecord.get().setWeight(String.valueOf(randomNum));
 
         return userRecord.get().getWeight();
     }

@@ -42,7 +42,7 @@ public class UserService {
 
         RecordRes recordRes = RecordRes.builder()
                 .username(user.get().getUsername())
-                .profileImg(user.get().getProfileImg())
+                .profileImg(user.get().getProfile_img())
                 .time(time)
                 .weight(weight)
                 .build();
