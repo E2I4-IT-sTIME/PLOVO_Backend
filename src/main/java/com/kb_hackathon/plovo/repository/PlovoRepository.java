@@ -10,7 +10,8 @@ import java.util.List;
 
 public interface PlovoRepository extends JpaRepository<Plovo, Long> {
     public Plovo findByIdAndDate(Long id, String date);
+    public Plovo findByMountain(Long mountain_id);
 
-    @Query(value = "SELECT p.date, p.weight FROM Plovo p WHERE p.mountain = :mountainId and p.date BETWEEN DATE_ADD(NOW(),INTERVAL -6 MONTH) AND NOW()", nativeQuery = true)
+    @Query(value = "SELECT p.date, p.weight FROM plovo p WHERE p.mountain = :mountainId and p.date BETWEEN DATE_ADD(NOW(),INTERVAL -6 MONTH) AND NOW()", nativeQuery = true)
     List<String> monthsAsc(@Param("mountainId") Long mountainId);
 }
