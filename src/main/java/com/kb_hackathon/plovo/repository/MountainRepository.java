@@ -12,8 +12,8 @@ public interface MountainRepository extends JpaRepository<Mountain, Long> {
     List<Mountain> mRecommend();
 
     @Query(value = "SELECT * FROM mountain WHERE mName like %mName = :mName%", nativeQuery = true)
-    List<Mountain> mfindByMName(String mName);
+    List<Mountain> mfindBymName(String mName);
 
-    Mountain findByMName(String mName);
+    Mountain findBymName(String mName);
 
 }
