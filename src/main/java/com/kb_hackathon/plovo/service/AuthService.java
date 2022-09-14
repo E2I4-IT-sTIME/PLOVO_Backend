@@ -21,6 +21,7 @@ import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
 import org.springframework.web.client.RestTemplate;
 
+import javax.transaction.Transactional;
 import java.util.Date;
 
 @Service
@@ -38,6 +39,7 @@ public class AuthService {
     @Value("${spring.jpa.security.oauth2.client.registration.kakao.redirect-uri}")
     String redirect_uri;
 
+    @Transactional
     public AccessTokenRes getAccessToken(String code) {
 
         RestTemplate rt = new RestTemplate();
@@ -75,6 +77,7 @@ public class AuthService {
     }
 
     // accessToken 으로 회원정보 요청 후 DB에 저장
+    @Transactional
     public String saveUser(String token) {
 
         // 카카오 서버로부터 회원정보 받아오기
@@ -96,6 +99,7 @@ public class AuthService {
         return createToken(user);
     }
 
+    @Transactional
     public KakaoProfile findProfile(String token) {
 
         RestTemplate rt = new RestTemplate();
@@ -125,6 +129,7 @@ public class AuthService {
         return kakaoProfile;
     }
 
+    @Transactional
     public String createToken(User user) {
 
         String jwtToken = JWT.create()

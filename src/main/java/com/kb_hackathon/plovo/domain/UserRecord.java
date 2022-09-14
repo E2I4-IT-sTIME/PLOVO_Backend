@@ -11,7 +11,7 @@ import javax.persistence.*;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-@Table
+@Table(name = "user_record")
 public class UserRecord {
 
     @Id
