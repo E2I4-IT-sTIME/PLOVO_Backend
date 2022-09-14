@@ -17,7 +17,7 @@ public class GetRecentUserRecord {
     private String distance;
     @ApiModelProperty(value = "플로깅 시간")
     private String plovoTime;
-    @ApiModelProperty(value = "무게")
+    @ApiModelProperty(value = "무게", example = "0")
     private Double weight;
     @ApiModelProperty(value = "산 이름")
     private String mName;
