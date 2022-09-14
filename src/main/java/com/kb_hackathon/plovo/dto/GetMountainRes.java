@@ -17,6 +17,6 @@ public class GetMountainRes {
     private String mName;  // 산 이름
     @ApiModelProperty(value = "산 이미지")
     private String mImage;  // 산 이미지
-    @ApiModelProperty(value = "현재 플로보 무게")
+    @ApiModelProperty(value = "현재 플로보 무게", example = "0")
     private Double weight;  // 현재 플로보 무게
 }

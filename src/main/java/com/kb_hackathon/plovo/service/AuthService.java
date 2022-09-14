@@ -4,7 +4,6 @@ import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.kb_hackathon.plovo.config.auth.JoinRes;
 import com.kb_hackathon.plovo.config.jwt.JwtProperties;
 import com.kb_hackathon.plovo.config.oauth.AccessTokenRes;
 import com.kb_hackathon.plovo.config.oauth.KakaoProfile;
@@ -76,7 +75,7 @@ public class AuthService {
     }
 
     // accessToken 으로 회원정보 요청 후 DB에 저장
-    public JoinRes saveUser(String token) {
+    public String saveUser(String token) {
 
         // 카카오 서버로부터 회원정보 받아오기
         KakaoProfile profile = findProfile(token);
@@ -94,14 +93,7 @@ public class AuthService {
             userRepository.save(user);
         }
 
-        User findUser = userRepository.findByEmail(profile.getKakao_account().getEmail());
-        String jwtToken = createToken(user);
-
-        JoinRes joinRes = JoinRes.builder()
-                .id(findUser.getId())
-                .jwtToken(jwtToken).build();
-
-        return joinRes;
+        return createToken(user);
     }
 
     public KakaoProfile findProfile(String token) {
@@ -146,5 +138,4 @@ public class AuthService {
 
         return jwtToken;
     }
-
 }

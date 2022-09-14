@@ -24,7 +24,7 @@ import java.util.List;
 public class PlogController {
 
     private final PlogService plogService;
-    
+
     // 플로보로부터 무게 받아오기 (ex 아두이노)
     @GetMapping("/plovo/weight")
     @ApiOperation(value = "플로보에게 무게 받아오기 API")
