@@ -3,9 +3,11 @@ package com.kb_hackathon.plovo.controller;
 import com.kb_hackathon.plovo.config.auth.JoinRes;
 import com.kb_hackathon.plovo.config.jwt.JwtProperties;
 import com.kb_hackathon.plovo.config.oauth.AccessTokenRes;
-import com.kb_hackathon.plovo.domain.User;
 import com.kb_hackathon.plovo.service.AuthService;
 import com.kb_hackathon.plovo.service.UserService;
+import io.swagger.annotations.ApiImplicitParam;
+import io.swagger.annotations.ApiImplicitParams;
+import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
 import org.hibernate.internal.JdbcObserverImpl;
 import org.springframework.http.HttpHeaders;
@@ -13,9 +15,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
-
-import java.io.IOException;
-import java.util.Optional;
 
 @RestController
 @RequiredArgsConstructor
@@ -50,12 +49,16 @@ public class AuthController {
 //    }
 
     @GetMapping("/api/code")
+    @ApiOperation(value = "인가코드 받기 API")
+    @ApiImplicitParam(name = "code", value = "인가코드", required = true, dataType = "string")
     public ResponseEntity code(@RequestParam("code") String code) {
         return ResponseEntity.ok().body("success");
     }
 
     // 인가코드 과정 없이 바로 액세스코드 받아오기
     @GetMapping("/api/access_token")
+    @ApiOperation(value = "엑세스 코드 받기 API")
+    @ApiImplicitParam(name = "token", value = "엑세스 코드", required = true, dataType = "string")
     public ResponseEntity getToken(@RequestParam("token") String token) {
 
         JoinRes joinRes = authService.saveUser(token);
@@ -69,11 +72,21 @@ public class AuthController {
     }
 
     @PostMapping("/join/{id}/username")
+    @ApiOperation(value = "추가정보입력(이름) API")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "id", value = "유저 아이디", paramType = "path", required = true, dataType = "long"),
+            @ApiImplicitParam(name = "name", value = "유저 이름", required = true, dataType = "string")
+    })
     public void addInfoName(@PathVariable Long id, @RequestParam("name") String name) {
         userService.addUsername(id, name);
     }
 
     @PostMapping("/join/{id}/image")
+    @ApiOperation(value = "추가정보입력(이미지) API")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "id", value = "유저 아이디", paramType = "path", required = true, dataType = "long"),
+            @ApiImplicitParam(name = "image", value = "유저 이미지", required = true, dataType = "multipartFile")
+    })
     public ResponseEntity addInfoImage(@PathVariable Long id, @RequestPart(value = "image", required = false) MultipartFile multipartFile) {
         try {
             userService.addImage(id, multipartFile);
