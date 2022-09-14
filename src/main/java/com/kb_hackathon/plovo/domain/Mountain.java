@@ -9,7 +9,7 @@ import javax.persistence.*;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-@Table
+@Table(name = "mountain")
 public class Mountain {
 
     @Id

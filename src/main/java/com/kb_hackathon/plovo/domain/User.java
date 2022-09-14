@@ -26,7 +26,7 @@ public class User {
 
     private String email;
 
-    private String profileImg;
+    private String profile_img;
 
     private String role;
 
@@ -34,10 +34,10 @@ public class User {
     private String status;
 
     @CreationTimestamp
-    private Timestamp createDate;
+    private Timestamp create_date;
 
     public void setImage(String image){
-        this.profileImg = image;
+        this.profile_img = image;
     }
 
     @Builder
@@ -45,7 +45,7 @@ public class User {
         this.k_username = kakao_username;
         this.username = username;
         this.email = email;
-        this.profileImg = profileImg;
+        this.profile_img = profileImg;
         this.role = role;
     }
 }
