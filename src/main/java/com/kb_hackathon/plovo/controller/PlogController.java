@@ -7,6 +7,9 @@ import com.kb_hackathon.plovo.dto.GetHomeRes;
 import com.kb_hackathon.plovo.dto.GetMountainRes;
 import com.kb_hackathon.plovo.dto.GetPlovoMountainRes;
 import com.kb_hackathon.plovo.service.MountainService;
+import io.swagger.annotations.ApiImplicitParam;
+import io.swagger.annotations.ApiImplicitParams;
+import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -24,33 +27,50 @@ public class PlogController {
     private final MountainService mountainService;
 
     @GetMapping("/home")
+    @ApiOperation(value = "홈 화면 API")
     public GetHomeRes home(){
         return mountainService.home();
     }
 
     @GetMapping("/plog/recommend")
+    @ApiOperation(value = "산 추천 API")
     public List<GetMountainRes> recommend(){
         return mountainService.recommend();
     }
 
     @PostMapping("/plog/search")
+    @ApiOperation(value = "산 검색 API")
+    @ApiImplicitParam(name = "mName", value = "산 이름", required = true, dataType = "string")
     public List<Mountain> search(@RequestParam("mName") String mName){
         return mountainService.search(mName);
     }
 
     @GetMapping("/plog/start")
+    @ApiOperation(value = "플로깅 시작 페이지 API")
+    @ApiImplicitParam(name = "mName", value = "산 이름", required = true, dataType = "string")
     public GetPlovoMountainRes plogStart(@RequestParam("mName") String mName){  // 산 선택해서 산이름 넘어오면
         return mountainService.plogStart(mName);
     }
 
     // 플로보로부터 무게 받아오기 (ex 아두이노)
     @GetMapping("/weight")
+    @ApiOperation(value = "플로보에게 무게 받아오기 API")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "userRecord_id", value = "userRecord 아이디", required = true, dataType = "long"),
+            @ApiImplicitParam(name = "plovo_id", value = "플로보 아이디", required = true, dataType = "long"),
+            @ApiImplicitParam(name = "weight", value = "플로깅 무게", required = true, dataType = "double")
+    })
     public void plovoWeight(@RequestParam(value = "userRecord_id") Long userRecord_id, @RequestParam(value = "plovo_id") Long plovo_id, @RequestParam(value = "weight") Double weight) {
         plogService.plovoWeight(userRecord_id, plovo_id, weight);
     }
 
     // 플로보 완료 api (무게 페이지)
     @GetMapping("/auth/plog/weight")
+    @ApiOperation(value = "플로보 완료 API")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "userRecord_id", value = "userRecord 아이디", required = true, dataType = "long"),
+            @ApiImplicitParam(name = "time", value = "플로깅 시간", required = true, dataType = "string")
+    })
     public Double plovoWeight(@RequestParam(value = "userRecord_id") Long userRecord_id, @RequestParam(value = "time") String time, Authentication authentication) {
         Double weight = plogService.endWeight(userRecord_id, time);
         return weight;
@@ -58,12 +78,16 @@ public class PlogController {
 
     // 플로보 위치 확인 api
     @GetMapping("/auth/plog/site")
+    @ApiOperation(value = "플로보 위치 확인 API")
+    @ApiImplicitParam(name = "plovo_id", value = "userRecord 아이디", required = true, dataType = "long")
     public String plovoSite(@RequestParam(value = "plovo_id") Long plovo_id) {
         return plogService.plovoSite(plovo_id);
     }
 
     // 종료 api
     @GetMapping("/auth/plog/end")
+    @ApiOperation(value = "플로깅 종료 API")
+    @ApiImplicitParam(name = "userRecord_id", value = "플로보 아이디", required = true, dataType = "long")
     public EndRes end(@RequestParam(value = "userRecord_id") Long userRecord_id) {
         return plogService.end(userRecord_id);
     }
