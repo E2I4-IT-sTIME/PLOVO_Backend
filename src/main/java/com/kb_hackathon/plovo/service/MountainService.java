@@ -43,7 +43,7 @@ public class MountainService {
         List<GetRecentUserRecord> getRecentUserRecords = new ArrayList<>();
         for (UserRecord record : userRecords){
             Optional<Plovo> plovo = plovoRepository.findById(record.getPlovoId());
-            Mountain mountain = mountainRepository.findByMName(plovo.get().getMountain().getMName());
+            Mountain mountain = mountainRepository.findBymName(plovo.get().getMountain().getMName());
             GetRecentUserRecord getRecentPlovo = GetRecentUserRecord.builder()
                     .distance(record.getDistance())
                     .plovoTime(record.getTime())
@@ -77,12 +77,12 @@ public class MountainService {
 
     @Transactional(readOnly = true)
     public List<Mountain> search(String mName){
-        return mountainRepository.mfindByMName(mName);
+        return mountainRepository.mfindBymName(mName);
     }
 
     @Transactional(readOnly = true)
     public GetPlovoMountainRes plogStart(String mName){
-        Mountain mountain = mountainRepository.findByMName(mName);
+        Mountain mountain = mountainRepository.findBymName(mName);
         GetPlovoMountainRes getPlovoMountainRes = GetPlovoMountainRes.builder()
                 .mName(mountain.getMName())
                 .mapImg(mountain.getMapImg())
