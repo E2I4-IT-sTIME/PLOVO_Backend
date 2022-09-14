@@ -21,30 +21,9 @@ import java.util.List;
 public class PlogController {
 
     private final PlogService plogService;
-    private final MountainService mountainService;
-
-    @GetMapping("/home")
-    public GetHomeRes home(){
-        return mountainService.home();
-    }
-
-    @GetMapping("/plog/recommend")
-    public List<GetMountainRes> recommend(){
-        return mountainService.recommend();
-    }
-
-    @PostMapping("/plog/search")
-    public List<Mountain> search(@RequestParam("mName") String mName){
-        return mountainService.search(mName);
-    }
-
-    @GetMapping("/plog/start")
-    public GetPlovoMountainRes plogStart(@RequestParam("mName") String mName){  // 산 선택해서 산이름 넘어오면
-        return mountainService.plogStart(mName);
-    }
 
     // 플로보로부터 무게 받아오기 (ex 아두이노)
-    @GetMapping("/weight")
+    @GetMapping("/plovo/weight")
     public void plovoWeight(@RequestParam(value = "userRecord_id") Long userRecord_id, @RequestParam(value = "plovo_id") Long plovo_id, @RequestParam(value = "weight") Double weight) {
         plogService.plovoWeight(userRecord_id, plovo_id, weight);
     }
