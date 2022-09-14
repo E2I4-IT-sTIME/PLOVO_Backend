@@ -29,7 +29,7 @@ public class S3Uploader {
     private String bucket;
 
 
-    public String upload(int userId, MultipartFile multipartFile, String dirName) throws IOException {
+    public String uploadFiles(Long userId, MultipartFile multipartFile, String dirName) throws IOException {
         File uploadFile = convert(multipartFile)
                 .orElseThrow(() -> new IllegalArgumentException("MultipartFile -> File로 전환이 실패했습니다."));
 
@@ -37,7 +37,7 @@ public class S3Uploader {
     }
 
     // s3로 파일 업로드하기
-    private String upload(int userId, File uploadFile, String dirName) {
+    private String upload(Long userId, File uploadFile, String dirName) {
         String fileName = dirName + "/" + UUID.randomUUID() + uploadFile.getName();   // S3에 저장된 파일 이름
         String uploadImageUrl = putS3(uploadFile, fileName); // s3로 업로드
         Optional<User> user = userRepository.findById(userId);

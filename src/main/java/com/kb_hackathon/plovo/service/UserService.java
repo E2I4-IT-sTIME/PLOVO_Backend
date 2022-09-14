@@ -23,21 +23,18 @@ public class UserService {
     private final S3Uploader s3Uploader;
 
     @Transactional
-    public User addUsername(String username){
-        User user = User.builder()
-                .username(username)
-                .k_username(username)  // 카카오에서 받아온 이름으로 변경하기
-                .status(true).build();
-        return user;
+    public void addUsername(Long id, String name){
+        Optional<User> user = userRepository.findById(id);
+        user.get().setUsername(name);
     }
 
     @Transactional
-    public void addImage(MultipartFile multipartFile, User user) throws IOException {
-        String r = s3Uploader.upload(user.getId(), multipartFile, "user");
+    public void addImage(Long id, MultipartFile multipartFile) throws IOException {
+        String r = s3Uploader.uploadFiles(id, multipartFile, "user");
         System.out.println(r);
     }
 
-    public RecordRes myRecord(int user_id) {
+    public RecordRes myRecord(Long user_id) {
         Optional<User> user = userRepository.findById(user_id);
 
         List<String> time = userRecordRepository.timesAsc(user.get().getId());
@@ -45,7 +42,7 @@ public class UserService {
 
         RecordRes recordRes = RecordRes.builder()
                 .username(user.get().getUsername())
-                .profileImg(user.get().getImage())
+                .profileImg(user.get().getProfileImg())
                 .time(time)
                 .weight(weight)
                 .build();
