@@ -24,7 +24,8 @@ public class SwaggerConfig {
                 .select()
                 .apis(RequestHandlerSelectors.basePackage("com.kb_hackathon.Plovo"))  // Swagger를 적용할 클래스의 package명
                 .paths(PathSelectors.any())  // 해당 package하위에 있는 모든 url에 적용
-                .build();
+                .build()
+                .apiInfo(apiInfo());
     }
 
     private ApiInfo apiInfo() {  // API의 이름, 현재 버전, API에 대한 정보
