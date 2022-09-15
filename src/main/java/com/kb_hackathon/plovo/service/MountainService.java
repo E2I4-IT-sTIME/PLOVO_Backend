@@ -30,11 +30,11 @@ public class MountainService {
     public GetHomeRes home(){
         // 플로깅 산 추천 & 최근 업데이트 플로거 보내주기
         List<GetMountainRes> mountainList = entityManagerQuery.mRecommend();
-//        List<GetMountainRes> getMountainRes = entityManagerQuery.recentPlog();
+        List<GetMountainRes> getMountainRes = entityManagerQuery.recentPlog();
 
         GetHomeRes getHomeRes = GetHomeRes.builder()
                 .getMountainResList(mountainList)
-                .getRecentPlovos(null).build();
+                .getRecentPlovos(getMountainRes).build();
         return getHomeRes;
     }
 
