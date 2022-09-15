@@ -10,6 +10,6 @@ import org.springframework.data.repository.query.Param;
 import java.util.List;
 
 public interface PlovoRepository extends JpaRepository<Plovo, Long> {
-    public Plovo findByIdAndDate(Long id, String date);
+//    public Plovo findByIdAndDate(Long id, String date);
     public Plovo findByMountain(Mountain mountain);
 }

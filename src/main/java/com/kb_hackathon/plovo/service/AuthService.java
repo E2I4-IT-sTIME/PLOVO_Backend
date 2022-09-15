@@ -90,7 +90,7 @@ public class AuthService {
                     .k_username(profile.getKakao_account().getProfile().getNickname())
                     .username(null)
                     .email(profile.getKakao_account().getEmail())
-                    .profileImg(null)
+                    .profile_img(null)
                     .role("ROLE_USER").build();
 
             userRepository.save(user);

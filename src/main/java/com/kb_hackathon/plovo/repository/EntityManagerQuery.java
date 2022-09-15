@@ -1,12 +1,12 @@
 package com.kb_hackathon.plovo.repository;
 
+
 import com.kb_hackathon.plovo.domain.Mountain;
 import com.kb_hackathon.plovo.dto.BestPloggerRes;
 import com.kb_hackathon.plovo.dto.GetMountainRes;
 import com.kb_hackathon.plovo.dto.MonthAndWeightRes;
 import com.kb_hackathon.plovo.dto.TimeAndWeightRes;
 import org.qlrm.mapper.JpaResultMapper;
-import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import javax.persistence.EntityManager;
@@ -31,7 +31,16 @@ public class EntityManagerQuery {
 
     public List<GetMountainRes> mRecommend() {
         JpaResultMapper result = new JpaResultMapper();
-        Query query = entityManager.createNativeQuery("SELECT m.m_name, m.main_img, p.weight FROM mountain m left join plovo p on m.id = p.mountain_id ORDER BY p.weight DESC LIMIT 5");
+        Query query = entityManager.createNativeQuery("SELECT m.m_name as mName, m.main_img as mImage, p.weight as weight FROM mountain m left join plovo p on m.id = p.mountain_id ORDER BY p.weight DESC LIMIT 5");
+        List<GetMountainRes> getMountainRes = result.list(query, GetMountainRes.class);
+        return getMountainRes;
+    }
+
+    public List<GetMountainRes> mfindBymName(String mName){
+        JpaResultMapper result = new JpaResultMapper();
+//        Query query = entityManager.createNativeQuery("SELECT m.m_name, m.main_img, p.weight FROM mountain m left join plovo p on m.id = p.mountain_id");
+        Query query = entityManager.createNativeQuery("SELECT m.m_name as mName, m.main_img as mImage, p.weight as weight FROM mountain m left join plovo p on m.id = p.mountain_id WHERE m.m_name like :mName")
+              .setParameter("mName", mName);
         List<GetMountainRes> getMountainRes = result.list(query, GetMountainRes.class);
         return getMountainRes;
     }
