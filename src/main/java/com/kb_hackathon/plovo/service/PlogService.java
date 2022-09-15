@@ -31,20 +31,20 @@ public class PlogService {
     private final EntityManagerQuery entityManagerQuery;
 
     // 플로보로부터 무게 받아오기 (ex 아두이노)
-    @Transactional
-    public String plovoWeight(Long userRecord_id, Long plovo_id, String weight) {
-        LocalDate now = LocalDate.now();
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM");
-        String formatedNow = now.format(formatter);
-
-        Optional<UserRecord> userRecord = userRecordRepository.findById(userRecord_id);
-        Plovo plovo = plovoRepository.findByIdAndDate(plovo_id, formatedNow);
-
-        plovo.setWeight(plovo.getWeight() + weight);
-        userRecord.get().setWeight(weight);
-
-        return weight;
-    }
+//    @Transactional
+//    public String plovoWeight(Long userRecord_id, Long plovo_id, String weight) {
+//        LocalDate now = LocalDate.now();
+//        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM");
+//        String formatedNow = now.format(formatter);
+//
+//        Optional<UserRecord> userRecord = userRecordRepository.findById(userRecord_id);
+//        Plovo plovo = plovoRepository.findByIdAndDate(plovo_id, formatedNow);
+//
+//        plovo.setWeight(plovo.getWeight() + weight);
+//        userRecord.get().setWeight(weight);
+//
+//        return weight;
+//    }
 
     @Transactional
     public String endWeight(Long userRecord_id, String time) {

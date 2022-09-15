@@ -34,7 +34,7 @@ public class PlogController {
             @ApiImplicitParam(name = "weight", value = "플로깅 무게", required = true, dataType = "string")
     })
     public void plovoWeight(@RequestParam(value = "userRecord_id") Long userRecord_id, @RequestParam(value = "plovo_id") Long plovo_id, @RequestParam(value = "weight") String weight) {
-        plogService.plovoWeight(userRecord_id, plovo_id, weight);
+//        plogService.plovoWeight(userRecord_id, plovo_id, weight);
     }
 
     // 플로보 완료 api (무게 페이지)
