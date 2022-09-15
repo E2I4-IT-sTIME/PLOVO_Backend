@@ -11,7 +11,7 @@ import java.util.Map;
 
 public interface UserRecordRepository extends JpaRepository<UserRecord, Long> {
 
-    @Query(value = "SELECT * FROM user_record ORDER BY createDate DESC LIMIT 5", nativeQuery = true)
+    @Query(value = "SELECT * FROM UserRecord ur ORDER BY ur.date DESC LIMIT 5", nativeQuery = true)
     List<UserRecord> mfindRecent();
 
     @Query(value = "SELECT u.date, u.time FROM user_record u WHERE u.user = :user_id and u.date BETWEEN DATE_ADD(NOW(),INTERVAL -6 DAY) AND NOW()", nativeQuery = true)

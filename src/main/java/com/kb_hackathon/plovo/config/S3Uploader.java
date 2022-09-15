@@ -29,10 +29,10 @@ public class S3Uploader {
     private String bucket;
 
 
-    public String uploadFiles(Long userId, MultipartFile multipartFile, String dirName) throws IOException {
+    public String upload(Long userId, MultipartFile multipartFile, String dirName) throws IOException {
         File uploadFile = convert(multipartFile)
                 .orElseThrow(() -> new IllegalArgumentException("MultipartFile -> File로 전환이 실패했습니다."));
-
+//        System.out.println("전환 완료");
         return upload(userId, uploadFile, dirName);
     }
 
@@ -64,9 +64,9 @@ public class S3Uploader {
 
     private Optional<File> convert(MultipartFile file) throws IOException {
         File convertFile = new File(System.getProperty("user.dir") + "/" + file.getOriginalFilename());
-
+//        System.out.println("convert");
         if (convertFile.createNewFile()) { // 바로 위에서 지정한 경로에 File이 생성됨 (경로가 잘못되었다면 생성 불가능)
-
+//            System.out.println("생성 완료");  // 여기서 경로 이상한지 출력X
             try (FileOutputStream fos = new FileOutputStream(convertFile)) { // FileOutputStream 데이터를 파일에 바이트 스트림으로 저장하기 위함
                 fos.write(file.getBytes());
             }
