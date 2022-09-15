@@ -38,11 +38,11 @@ public class SecurityConfig {
                 .and()
                 .authorizeRequests()
                 .antMatchers("/auth/**")
-                .authenticated()
+                .access("hasRole('ROLE_USER')")
                 .anyRequest().permitAll()
-                .and()
-                .exceptionHandling()
-                .authenticationEntryPoint(new CustomAuthenticationEntryPoint())
+//                .and()
+//                .exceptionHandling()
+//                .authenticationEntryPoint(new CustomAuthenticationEntryPoint())
                 .and()
                 .build();
     }
@@ -52,7 +52,8 @@ public class SecurityConfig {
         public void configure(HttpSecurity http) throws Exception {
             AuthenticationManager authenticationManager = http.getSharedObject(AuthenticationManager.class);
             http
-                    .addFilter(corsFilter);
+                    .addFilter(corsFilter)
+                    .addFilter(new JwtAuthorizationFilter(authenticationManager, userRepository));
 //                    .addFilterBefore(new JwtAuthorizationFilter(authenticationManager, userRepository), UsernamePasswordAuthenticationFilter.class);
         }
     }

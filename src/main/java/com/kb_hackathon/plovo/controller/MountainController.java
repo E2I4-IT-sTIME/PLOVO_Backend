@@ -8,6 +8,9 @@ import com.kb_hackathon.plovo.dto.GetPlovoMountainRes;
 import com.kb_hackathon.plovo.dto.SocialRes;
 import com.kb_hackathon.plovo.service.MountainService;
 import com.kb_hackathon.plovo.service.SocialService;
+import io.swagger.annotations.ApiImplicitParam;
+import io.swagger.annotations.ApiImplicitParams;
+import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.parameters.P;
@@ -39,6 +42,10 @@ public class MountainController {
     }
 
     @GetMapping("/auth/plog/start")
+    @ApiOperation(value = "플로깅 시작 API")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "mName", value = "산 이름", required = true, dataType = "string")
+    })
     public GetPlovoMountainRes plogStart(@RequestParam("mName") String mName, Authentication authentication){  // 산 선택해서 산이름 넘어오면
         PrincipalDetails principalDetails = (PrincipalDetails) authentication.getPrincipal();
 

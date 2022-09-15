@@ -1,5 +1,6 @@
 package com.kb_hackathon.plovo.repository;
 
+import com.kb_hackathon.plovo.domain.Mountain;
 import com.kb_hackathon.plovo.domain.Plovo;
 import com.kb_hackathon.plovo.domain.UserRecord;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -10,8 +11,5 @@ import java.util.List;
 
 public interface PlovoRepository extends JpaRepository<Plovo, Long> {
     public Plovo findByIdAndDate(Long id, String date);
-    public Plovo findByMountain(Long mountain_id);
-
-    @Query(value = "SELECT p.date, p.weight FROM plovo p WHERE p.mountain = :mountainId and p.date BETWEEN DATE_ADD(NOW(),INTERVAL -6 MONTH) AND NOW()", nativeQuery = true)
-    List<String> monthsAsc(@Param("mountainId") Long mountainId);
+    public Plovo findByMountain(Mountain mountain);
 }
