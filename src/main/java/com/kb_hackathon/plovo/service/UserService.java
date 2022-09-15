@@ -30,7 +30,7 @@ public class UserService {
 
     @Transactional
     public void addImage(Long id, MultipartFile multipartFile) throws IOException {
-        String r = s3Uploader.uploadFiles(id, multipartFile, "user");
+        String r = s3Uploader.upload(id, multipartFile, "user");
         System.out.println(r);
     }
 
