@@ -14,6 +14,8 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @ApiModel(value = "산 정보", description = "산 이름, 지도사진, 거리, 플로보 무게")
 public class GetPlovoMountainRes {
+    @ApiModelProperty(value = "유저 기록 id")
+    private Long userRecord_id;
     @ApiModelProperty(value = "산 이름")
     private String mName;
     @ApiModelProperty(value = "지도 사진")

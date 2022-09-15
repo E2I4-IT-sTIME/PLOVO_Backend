@@ -1,8 +1,10 @@
 package com.kb_hackathon.plovo.domain;
 
+import java.sql.Date;
 import java.sql.Timestamp;
 import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
 
@@ -35,4 +37,7 @@ public class UserRecord {
     private String time; // 플로깅 걸린 시간
 
     private String weight; // 플로보에 담은 무게
+
+    @DateTimeFormat(pattern="yyyy-MM")
+    private Date month;
 }

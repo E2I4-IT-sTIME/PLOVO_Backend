@@ -84,18 +84,22 @@ public class MountainService {
     @Transactional
     public GetPlovoMountainRes plogStart(String mName, User user){
         Mountain mountain = mountainRepository.findBymName(mName);
-        GetPlovoMountainRes getPlovoMountainRes = GetPlovoMountainRes.builder()
-                .mName(mountain.getMName())
-                .mapImg(mountain.getMapImg())
-                .distance(mountain.getDistance())
-                .plovoWeight(mountain.getPlovo().getWeight()).build();
 
-        Plovo plovo = plovoRepository.findByMountain(mountain.getId());
+        Plovo plovo = plovoRepository.findByMountain(mountain);
 
         UserRecord userRecord = UserRecord.builder()
                 .user(user)
                 .plovoId(plovo.getId())
                 .distance(mountain.getDistance()).build();
+
+        userRecordRepository.save(userRecord);
+
+        GetPlovoMountainRes getPlovoMountainRes = GetPlovoMountainRes.builder()
+                .mName(mountain.getMName())
+                .mapImg(mountain.getMapImg())
+                .distance(mountain.getDistance())
+                .plovoWeight(mountain.getPlovo().getWeight())
+                .userRecord_id(userRecord.getId()).build();
 
         return getPlovoMountainRes;
 
