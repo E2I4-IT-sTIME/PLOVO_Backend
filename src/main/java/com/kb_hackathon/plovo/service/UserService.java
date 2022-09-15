@@ -3,6 +3,8 @@ package com.kb_hackathon.plovo.service;
 import com.kb_hackathon.plovo.config.S3Uploader;
 import com.kb_hackathon.plovo.domain.User;
 import com.kb_hackathon.plovo.dto.RecordRes;
+import com.kb_hackathon.plovo.dto.TimeAndWeightRes;
+import com.kb_hackathon.plovo.repository.EntityManagerQuery;
 import com.kb_hackathon.plovo.repository.UserRecordRepository;
 import com.kb_hackathon.plovo.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
@@ -21,6 +23,7 @@ public class UserService {
     private final UserRepository userRepository;
     private final UserRecordRepository userRecordRepository;
     private final S3Uploader s3Uploader;
+    private final EntityManagerQuery entityManagerQuery;
 
     @Transactional
     public void addUsername(Long id, String name){
@@ -37,14 +40,12 @@ public class UserService {
     public RecordRes myRecord(Long user_id) {
         Optional<User> user = userRepository.findById(user_id);
 
-        List<String> time = userRecordRepository.timesAsc(user.get().getId());
-        List<String> weight = userRecordRepository.weightsAsc(user.get().getId());
+        List<TimeAndWeightRes> timeAndWeightRes = entityManagerQuery.timeAndWeight(user.get().getId());
 
         RecordRes recordRes = RecordRes.builder()
                 .username(user.get().getUsername())
                 .profileImg(user.get().getProfile_img())
-                .time(time)
-                .weight(weight)
+                .timeAndWeightRes(timeAndWeightRes)
                 .build();
 
         return recordRes;

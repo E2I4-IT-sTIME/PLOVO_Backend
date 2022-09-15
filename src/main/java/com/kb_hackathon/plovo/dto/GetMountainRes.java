@@ -6,6 +6,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import org.springframework.lang.Nullable;
 
 @Getter
 @Builder
@@ -19,4 +20,12 @@ public class GetMountainRes {
     private String mImage;  // 산 이미지
     @ApiModelProperty(value = "현재 플로보 무게", example = "0")
     private String weight;  // 현재 플로보 무게
+
+    @ApiModelProperty(value = "산 거리")
+    @Nullable
+    private String distance; // 산 거리
+
+    @ApiModelProperty(value = "플로깅 시간")
+    @Nullable
+    private String time;
 }
