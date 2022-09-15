@@ -59,7 +59,7 @@ public class MountainService {
         UserRecord userRecord = UserRecord.builder()
                 .user(user)
                 .plovoId(plovo.getId())
-                .distance(mountain.getDistance()).build();
+                .build();
 
         userRecordRepository.save(userRecord);
 

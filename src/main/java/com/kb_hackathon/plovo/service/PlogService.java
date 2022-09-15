@@ -53,11 +53,13 @@ public class PlogService {
 
         Random random = new Random();
         double randomNum = (double) (Math.random() * 201 ) + 100;
-        userRecord.get().setWeight(String.valueOf(randomNum));
+        String formatedNum = String.format("%.2f", randomNum);
+        userRecord.get().setWeight(formatedNum);
 
         Optional<Plovo> plovo = plovoRepository.findById(userRecord.get().getPlovoId());
         double sumWeight = Double.valueOf(plovo.get().getWeight())+randomNum;
-        plovo.get().setWeight(String.valueOf(sumWeight));
+        String formatedSum = String.format("%.2f", sumWeight);
+        plovo.get().setWeight(formatedSum);
 
         plovoRepository.save(plovo.get());
 

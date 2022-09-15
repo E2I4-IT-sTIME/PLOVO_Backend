@@ -2,6 +2,8 @@ package com.kb_hackathon.plovo.domain;
 
 import java.sql.Date;
 import java.sql.Timestamp;
+
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
 import org.springframework.format.annotation.DateTimeFormat;
@@ -28,10 +30,9 @@ public class UserRecord {
     @JoinColumn(name = "user_id")
     private User user;
 
+    @JsonFormat(pattern = "yyyy-MM-dd")
     @CreationTimestamp
     private Timestamp date;
-    
-    private String distance;
 
     @Column(name = "time")
     private String time; // 플로깅 걸린 시간

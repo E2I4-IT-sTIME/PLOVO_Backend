@@ -64,6 +64,7 @@ public class S3Uploader {
 
     private Optional<File> convert(MultipartFile file) throws IOException {
         File convertFile = new File(System.getProperty("user.dir") + "/" + file.getOriginalFilename());
+        System.out.println(convertFile);
 //        System.out.println("convert");
         if (convertFile.createNewFile()) { // 바로 위에서 지정한 경로에 File이 생성됨 (경로가 잘못되었다면 생성 불가능)
 //            System.out.println("생성 완료");  // 여기서 경로 이상한지 출력X

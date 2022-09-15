@@ -23,7 +23,7 @@ public class EntityManagerQuery {
     public List<MonthAndWeightRes> MonthAndWeightRes(Long mountain_id) {
 
         JpaResultMapper result = new JpaResultMapper();
-        Query query = entityManager.createNativeQuery("select MONTH(ur.date) as month, SUM(ur.weight) as weight from user_record ur left join plovo p on p.id = ur.plovo_id left join mountain m on m.id = p.mountain_id where m.id =:mountain_id and ur.date BETWEEN DATE_ADD(NOW(), INTERVAL -6 MONTH ) AND NOW() GROUP BY MONTH(ur.date);")
+        Query query = entityManager.createNativeQuery("select MONTH(ur.date) as month, abs(SUM(ur.weight)) as weight from user_record ur left join plovo p on p.id = ur.plovo_id left join mountain m on m.id = p.mountain_id where m.id =:mountain_id and ur.date BETWEEN DATE_ADD(NOW(), INTERVAL -6 MONTH ) AND NOW() GROUP BY MONTH(ur.date);")
                 .setParameter("mountain_id", mountain_id);
         List<MonthAndWeightRes> list = result.list(query, MonthAndWeightRes.class);
         return list;
@@ -47,7 +47,7 @@ public class EntityManagerQuery {
 
     public List<TimeAndWeightRes> timeAndWeight(Long user_id) {
         JpaResultMapper result = new JpaResultMapper();
-        Query query = entityManager.createNativeQuery("SELECT MONTH(u.date) as month, DAY(u.date) as day, u.time as time, u.weight as weight FROM user_record u WHERE u.user_id =:user_id and u.date BETWEEN DATE_ADD(NOW(),INTERVAL -6 DAY) AND NOW()")
+        Query query = entityManager.createNativeQuery("SELECT MONTH(u.date) as month, DAY(u.date) as day, u.time as time, abs(u.weight) as weight FROM user_record u WHERE u.user_id =:user_id and u.date BETWEEN DATE_ADD(NOW(),INTERVAL -6 DAY) AND NOW()")
                 .setParameter("user_id", user_id);;
         List<TimeAndWeightRes> timeAndWeightRes = result.list(query, TimeAndWeightRes.class);
         return timeAndWeightRes;
@@ -55,7 +55,7 @@ public class EntityManagerQuery {
 
     public List<GetMountainRes> recentPlog() {
         JpaResultMapper result = new JpaResultMapper();
-        Query query = entityManager.createNativeQuery("SELECT m.m_name as mName, m.distance as distance, u.time as time, u.weight as weight, m.main_img as mImage FROM user_record u left outer join plovo p on u.plovo_id = p.id left join mountain m on p.mountain_id = m.id ORDER BY u.date DESC LIMIT 3;");
+        Query query = entityManager.createNativeQuery("SELECT m.m_name as mName, m.main_img as mImage, u.weight as weight, m.distance as distance, u.time as time FROM user_record u left outer join plovo p on u.plovo_id = p.id left join mountain m on p.mountain_id = m.id ORDER BY u.date DESC LIMIT 3;");
         List<GetMountainRes> getMountainRes = result.list(query, GetMountainRes.class);
         return getMountainRes;
     }
