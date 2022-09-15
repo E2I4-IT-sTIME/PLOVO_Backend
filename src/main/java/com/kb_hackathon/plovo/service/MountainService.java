@@ -8,6 +8,7 @@ import com.kb_hackathon.plovo.dto.GetHomeRes;
 import com.kb_hackathon.plovo.dto.GetMountainRes;
 import com.kb_hackathon.plovo.dto.GetPlovoMountainRes;
 import com.kb_hackathon.plovo.dto.GetRecentUserRecord;
+import com.kb_hackathon.plovo.repository.EntityManagerQuery;
 import com.kb_hackathon.plovo.repository.MountainRepository;
 import com.kb_hackathon.plovo.repository.PlovoRepository;
 import com.kb_hackathon.plovo.repository.UserRecordRepository;
@@ -26,21 +27,14 @@ public class MountainService {
     private final MountainRepository mountainRepository;
     private final UserRecordRepository userRecordRepository;
     private final PlovoRepository plovoRepository;
+    private final EntityManagerQuery entityManagerQuery;
 
     @Transactional(readOnly = true)
     public GetHomeRes home(){
         // 플로깅 산 추천 & 최근 업데이트 플로거 보내주기
-        List<Mountain> mountainList = mountainRepository.mRecommend();
+        List<GetMountainRes> mountainList = entityManagerQuery.mRecommend();
         List<UserRecord> userRecords = userRecordRepository.mfindRecent();
 
-        List<GetMountainRes> getMountainRes = new ArrayList<>();
-        for (Mountain m : mountainList){
-            GetMountainRes getMountainRes1 = GetMountainRes.builder()
-                    .mName(m.getMName())
-                    .mImage(m.getMainImg())
-                    .weight(m.getPlovo().getWeight()).build();
-            getMountainRes.add(getMountainRes1);
-        }
         List<GetRecentUserRecord> getRecentUserRecords = new ArrayList<>();
         for (UserRecord record : userRecords){
             Optional<Plovo> plovo = plovoRepository.findById(record.getPlovoId());
@@ -56,24 +50,16 @@ public class MountainService {
         }
 
         GetHomeRes getHomeRes = GetHomeRes.builder()
-                .getMountainResList(getMountainRes)
+                .getMountainResList(mountainList)
                 .getRecentPlovos(getRecentUserRecords).build();
         return getHomeRes;
     }
 
     @Transactional(readOnly = true)
     public List<GetMountainRes> recommend(){
-        List<Mountain> mountainList = mountainRepository.mRecommend();
-        List<GetMountainRes> getMountainResList = (List<GetMountainRes>) new GetMountainRes();
+        List<GetMountainRes> mountainList = entityManagerQuery.mRecommend();
 
-        for (Mountain m : mountainList){
-            GetMountainRes getMountainRes = GetMountainRes.builder()
-                    .mName(m.getMName())
-                    .mImage(m.getMainImg())
-                    .weight(m.getPlovo().getWeight()).build();
-            getMountainResList.add(getMountainRes);
-        }
-        return getMountainResList;
+        return mountainList;
     }
 
     @Transactional(readOnly = true)
