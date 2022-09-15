@@ -51,6 +51,9 @@ dependencies {
     // https://mvnrepository.com/artifact/org.apache.httpcomponents/httpcore
     implementation group: 'org.apache.httpcomponents', name: 'httpcore', version: '4.4.15'
 
+    // https://mvnrepository.com/artifact/org.qlrm/qlrm
+    implementation group: 'org.qlrm', name: 'qlrm', version: '3.0.4'
+
     compileOnly 'org.projectlombok:lombok'
     developmentOnly 'org.springframework.boot:spring-boot-devtools'
     runtimeOnly 'org.mariadb.jdbc:mariadb-java-client'
