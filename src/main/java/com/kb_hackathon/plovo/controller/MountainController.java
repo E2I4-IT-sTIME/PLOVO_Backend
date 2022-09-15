@@ -37,7 +37,7 @@ public class MountainController {
     }
 
     @PostMapping("/mountain/search")
-    public List<Mountain> search(@RequestParam("mName") String mName){
+    public List<GetMountainRes> search(@RequestParam("mName") String mName){
         return mountainService.search(mName);
     }
 

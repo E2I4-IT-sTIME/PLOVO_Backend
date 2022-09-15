@@ -32,6 +32,4 @@ public class Plovo {
 
     private String img;
 
-    @DateTimeFormat(pattern="yyyy-MM")
-    private String date;
 }

@@ -7,7 +7,6 @@ import com.kb_hackathon.plovo.domain.UserRecord;
 import com.kb_hackathon.plovo.dto.GetHomeRes;
 import com.kb_hackathon.plovo.dto.GetMountainRes;
 import com.kb_hackathon.plovo.dto.GetPlovoMountainRes;
-import com.kb_hackathon.plovo.dto.GetRecentUserRecord;
 import com.kb_hackathon.plovo.repository.EntityManagerQuery;
 import com.kb_hackathon.plovo.repository.MountainRepository;
 import com.kb_hackathon.plovo.repository.PlovoRepository;
@@ -16,9 +15,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 @RequiredArgsConstructor
 @Service
@@ -33,25 +30,11 @@ public class MountainService {
     public GetHomeRes home(){
         // 플로깅 산 추천 & 최근 업데이트 플로거 보내주기
         List<GetMountainRes> mountainList = entityManagerQuery.mRecommend();
-        List<UserRecord> userRecords = userRecordRepository.mfindRecent();
-
-        List<GetRecentUserRecord> getRecentUserRecords = new ArrayList<>();
-        for (UserRecord record : userRecords){
-            Optional<Plovo> plovo = plovoRepository.findById(record.getPlovoId());
-            Mountain mountain = mountainRepository.findBymName(plovo.get().getMountain().getMName());
-            GetRecentUserRecord getRecentPlovo = GetRecentUserRecord.builder()
-                    .distance(record.getDistance())
-                    .plovoTime(record.getTime())
-                    .weight(record.getWeight())
-                    .mName(mountain.getMName())
-                    .mainImg(mountain.getMainImg()).build();
-            getRecentUserRecords.add(getRecentPlovo);
-
-        }
+//        List<GetMountainRes> getMountainRes = entityManagerQuery.recentPlog();
 
         GetHomeRes getHomeRes = GetHomeRes.builder()
                 .getMountainResList(mountainList)
-                .getRecentPlovos(getRecentUserRecords).build();
+                .getRecentPlovos(null).build();
         return getHomeRes;
     }
 
@@ -63,8 +46,8 @@ public class MountainService {
     }
 
     @Transactional(readOnly = true)
-    public List<Mountain> search(String mName){
-        return mountainRepository.mfindBymName(mName);
+    public List<GetMountainRes> search(String mName){
+        return entityManagerQuery.mfindBymName(mName);
     }
 
     @Transactional

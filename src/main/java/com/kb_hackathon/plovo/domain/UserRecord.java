@@ -38,6 +38,4 @@ public class UserRecord {
 
     private String weight; // 플로보에 담은 무게
 
-    @DateTimeFormat(pattern="yyyy-MM")
-    private Date month;
 }

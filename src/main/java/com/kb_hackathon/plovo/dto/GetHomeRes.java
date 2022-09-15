@@ -18,5 +18,5 @@ public class GetHomeRes {
     @ApiModelProperty(value = "(플로보 무게 가벼운 순으로)플로깅 산 리스트")
     private List<GetMountainRes> getMountainResList;
     @ApiModelProperty(value = "최근 플로깅 기록 리스트")
-    private List<GetRecentUserRecord> getRecentPlovos;
+    private List<GetMountainRes> getRecentPlovos;
 }
