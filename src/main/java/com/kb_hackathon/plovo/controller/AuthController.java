@@ -14,6 +14,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
+
 @RestController
 @RequiredArgsConstructor
 public class AuthController {
@@ -84,12 +86,8 @@ public class AuthController {
             @ApiImplicitParam(name = "id", value = "유저 아이디", paramType = "path", required = true, dataType = "long"),
             @ApiImplicitParam(name = "image", value = "유저 이미지", required = true, dataType = "multipartFile")
     })
-    public ResponseEntity addInfoImage(@PathVariable Long id, @RequestPart(value = "image", required = false) MultipartFile multipartFile) {
-        try {
-            userService.addImage(id, multipartFile);
-        } catch (Exception e) {
-            return new ResponseEntity(HttpStatus.BAD_REQUEST);
-        }
-        return new ResponseEntity(HttpStatus.NO_CONTENT);
+    public void addInfoImage(@PathVariable Long id, @RequestPart(value = "image", required = false) MultipartFile multipartFile) throws IOException {
+        userService.addImage(id, multipartFile);
+
     }
 }
