@@ -7,6 +7,7 @@ import com.kb_hackathon.plovo.domain.UserRecord;
 import com.kb_hackathon.plovo.dto.GetHomeRes;
 import com.kb_hackathon.plovo.dto.GetMountainRes;
 import com.kb_hackathon.plovo.dto.GetPlovoMountainRes;
+import com.kb_hackathon.plovo.dto.MountainRes;
 import com.kb_hackathon.plovo.repository.EntityManagerQuery;
 import com.kb_hackathon.plovo.repository.MountainRepository;
 import com.kb_hackathon.plovo.repository.PlovoRepository;
@@ -29,7 +30,7 @@ public class MountainService {
     @Transactional(readOnly = true)
     public GetHomeRes home(){
         // 플로깅 산 추천 & 최근 업데이트 플로거 보내주기
-        List<GetMountainRes> mountainList = entityManagerQuery.mRecommend();
+        List<MountainRes> mountainList = entityManagerQuery.mRecommend();
 //        List<GetMountainRes> getMountainRes = entityManagerQuery.recentPlog();
 
         GetHomeRes getHomeRes = GetHomeRes.builder()
@@ -39,8 +40,8 @@ public class MountainService {
     }
 
     @Transactional(readOnly = true)
-    public List<GetMountainRes> recommend(){
-        List<GetMountainRes> mountainList = entityManagerQuery.mRecommend();
+    public List<MountainRes> recommend(){
+        List<MountainRes> mountainList = entityManagerQuery.mRecommend();
 
         return mountainList;
     }

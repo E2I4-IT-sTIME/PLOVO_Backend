@@ -16,7 +16,7 @@ import java.util.List;
 @ApiModel(value = "홈 화면 정보", description = "(플로보 무게 가벼운 순으로)플로깅 산 리스트, 최근 플로깅 기록 리를 가짐")
 public class GetHomeRes {
     @ApiModelProperty(value = "(플로보 무게 가벼운 순으로)플로깅 산 리스트")
-    private List<GetMountainRes> getMountainResList;
+    private List<MountainRes> getMountainResList;
     @ApiModelProperty(value = "최근 플로깅 기록 리스트")
-    private List<GetMountainRes> getRecentPlovos;
+    private List<MountainRes> getRecentPlovos;
 }
