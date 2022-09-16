@@ -19,7 +19,7 @@ public class SocialService {
 
     public SocialRes social() {
 
-        List<GetMountainRes> recentPlog = entityManagerQuery.recentPlog();
+        List<GetMountainRes> recentPlog = entityManagerQuery.socialRecentPlog();
         List<BestPloggerRes> bestPlogger = entityManagerQuery.bestPlogger();
 
         SocialRes socialRes = SocialRes.builder()
