@@ -35,7 +35,7 @@ public class MountainService {
 
         GetHomeRes getHomeRes = GetHomeRes.builder()
                 .getMountainResList(mountainList)
-                .getRecentPlovos(null).build();
+                .getRecentPlovos(getMountainRes).build();
         return getHomeRes;
     }
 
