@@ -32,4 +32,12 @@ public class GetMountainRes {
     @Nullable
     @Column(nullable = true)
     private String time;
+
+//    public GetMountainRes(String mName, String mImage, String weight, @Nullable String distance, @Nullable String time) {
+//        this.mName = mName;
+//        this.mImage = mImage;
+//        this.weight = weight;
+//        this.distance = distance;
+//        this.time = time;
+//    }
 }
