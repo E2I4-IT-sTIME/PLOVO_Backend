@@ -2,10 +2,7 @@ package com.kb_hackathon.plovo.repository;
 
 
 import com.kb_hackathon.plovo.domain.Mountain;
-import com.kb_hackathon.plovo.dto.BestPloggerRes;
-import com.kb_hackathon.plovo.dto.GetMountainRes;
-import com.kb_hackathon.plovo.dto.MonthAndWeightRes;
-import com.kb_hackathon.plovo.dto.TimeAndWeightRes;
+import com.kb_hackathon.plovo.dto.*;
 import org.qlrm.mapper.JpaResultMapper;
 import org.springframework.stereotype.Repository;
 
@@ -29,11 +26,11 @@ public class EntityManagerQuery {
         return list;
     }
 
-    public List<GetMountainRes> mRecommend() {
+    public List<MountainRes> mRecommend() {
         JpaResultMapper result = new JpaResultMapper();
         Query query = entityManager.createNativeQuery("SELECT m.m_name as mName, m.main_img as mImage, p.weight as weight FROM mountain m left join plovo p on m.id = p.mountain_id ORDER BY p.weight DESC LIMIT 5");
-        List<GetMountainRes> getMountainRes = result.list(query, GetMountainRes.class);
-        return getMountainRes;
+        List<MountainRes> mountainRes = result.list(query, MountainRes.class);
+        return mountainRes;
     }
 
     public List<GetMountainRes> mfindBymName(String mName){

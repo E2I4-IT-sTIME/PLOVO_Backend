@@ -2,10 +2,7 @@ package com.kb_hackathon.plovo.controller;
 
 import com.kb_hackathon.plovo.config.auth.PrincipalDetails;
 import com.kb_hackathon.plovo.domain.Mountain;
-import com.kb_hackathon.plovo.dto.GetHomeRes;
-import com.kb_hackathon.plovo.dto.GetMountainRes;
-import com.kb_hackathon.plovo.dto.GetPlovoMountainRes;
-import com.kb_hackathon.plovo.dto.SocialRes;
+import com.kb_hackathon.plovo.dto.*;
 import com.kb_hackathon.plovo.service.MountainService;
 import com.kb_hackathon.plovo.service.SocialService;
 import io.swagger.annotations.ApiImplicitParam;
@@ -32,7 +29,7 @@ public class MountainController {
     }
 
     @GetMapping("/mountain/recommend")
-    public List<GetMountainRes> recommend(){
+    public List<MountainRes> recommend(){
         return mountainService.recommend();
     }
 
