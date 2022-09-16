@@ -33,7 +33,7 @@ public class MountainController {
         return mountainService.recommend();
     }
 
-    @PostMapping("/mountain/search")
+    @GetMapping("/mountain/search")
     public List<GetMountainRes> search(@RequestParam("mName") String mName){
         return mountainService.search(mName);
     }
