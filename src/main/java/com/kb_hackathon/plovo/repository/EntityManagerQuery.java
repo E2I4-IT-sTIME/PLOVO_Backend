@@ -59,7 +59,7 @@ public class EntityManagerQuery {
 
     public List<GetMountainRes> recentPlog() {
         JpaResultMapper result = new JpaResultMapper();
-        Query query = entityManager.createNativeQuery("SELECT m.m_name as mName, m.main_img as mImage, u.weight as weight, p.current_weight as distance, p.current_weight as time FROM user_record u left outer join plovo p on u.plovo_id = p.id left join mountain m on p.mountain_id = m.id ORDER BY u.date DESC LIMIT 3;");
+        Query query = entityManager.createNativeQuery("SELECT m.m_name as mName, m.main_img as mImage, u.weight as weight, m.distance as distance, u.time as time FROM user_record u left outer join plovo p on u.plovo_id = p.id left join mountain m on p.mountain_id = m.id ORDER BY u.date DESC LIMIT 3;");
         List<GetMountainRes> getMountainRes = result.list(query, GetMountainRes.class);
         return getMountainRes;
     }
