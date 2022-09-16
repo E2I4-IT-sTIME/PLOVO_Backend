@@ -8,6 +8,7 @@ import com.kb_hackathon.plovo.config.jwt.JwtProperties;
 import com.kb_hackathon.plovo.config.oauth.AccessTokenRes;
 import com.kb_hackathon.plovo.config.oauth.KakaoProfile;
 import com.kb_hackathon.plovo.domain.User;
+import com.kb_hackathon.plovo.dto.LoginRes;
 import com.kb_hackathon.plovo.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
@@ -78,7 +79,8 @@ public class AuthService {
 
     // accessToken 으로 회원정보 요청 후 DB에 저장
     @Transactional
-    public String saveUser(String token) {
+    public LoginRes saveUser(String token) {
+        boolean isExist = true;
 
         // 카카오 서버로부터 회원정보 받아오기
         KakaoProfile profile = findProfile(token);
@@ -86,6 +88,7 @@ public class AuthService {
         User user = userRepository.findByEmail(profile.getKakao_account().getEmail());
 
         if(user == null) {
+            isExist = false;
             user = User.builder()
                     .k_username(profile.getKakao_account().getProfile().getNickname())
                     .username(null)
@@ -96,7 +99,7 @@ public class AuthService {
             userRepository.save(user);
         }
 
-        return createToken(user);
+        return createToken(user, isExist);
     }
 
     @Transactional
@@ -130,7 +133,7 @@ public class AuthService {
     }
 
     @Transactional
-    public String createToken(User user) {
+    public LoginRes createToken(User user, Boolean isExist) {
 
         String jwtToken = JWT.create()
                 .withSubject(user.getEmail())
@@ -141,6 +144,9 @@ public class AuthService {
 
                 .sign(Algorithm.HMAC512(JwtProperties.SECRET));
 
-        return jwtToken;
+        LoginRes loginRes = LoginRes.builder()
+                .jwtToken(jwtToken)
+                .isExist(isExist).build();
+        return loginRes;
     }
 }
