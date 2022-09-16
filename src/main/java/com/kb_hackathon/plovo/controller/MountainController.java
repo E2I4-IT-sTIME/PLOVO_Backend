@@ -29,7 +29,7 @@ public class MountainController {
     }
 
     @GetMapping("/mountain/recommend")
-    public List<MountainRes> recommend(){
+    public List<GetMountainRes> recommend(){
         return mountainService.recommend();
     }
 

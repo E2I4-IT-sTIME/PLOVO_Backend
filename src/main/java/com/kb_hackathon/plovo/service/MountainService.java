@@ -30,8 +30,8 @@ public class MountainService {
     @Transactional(readOnly = true)
     public GetHomeRes home(){
         // 플로깅 산 추천 & 최근 업데이트 플로거 보내주기
-        List<MountainRes> mountainList = entityManagerQuery.mRecommend();
-        List<MountainRes> getMountainRes = entityManagerQuery.recentPlog();
+        List<GetMountainRes> mountainList = entityManagerQuery.mRecommend();
+        List<GetMountainRes> getMountainRes = entityManagerQuery.recentPlog();
 
         GetHomeRes getHomeRes = GetHomeRes.builder()
                 .getMountainResList(mountainList)
@@ -40,8 +40,8 @@ public class MountainService {
     }
 
     @Transactional(readOnly = true)
-    public List<MountainRes> recommend(){
-        List<MountainRes> mountainList = entityManagerQuery.mRecommend();
+    public List<GetMountainRes> recommend(){
+        List<GetMountainRes> mountainList = entityManagerQuery.mRecommend();
 
         return mountainList;
     }
