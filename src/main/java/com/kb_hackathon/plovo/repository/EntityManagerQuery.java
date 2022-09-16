@@ -36,8 +36,8 @@ public class EntityManagerQuery {
     public List<GetMountainRes> mfindBymName(String mName){
         JpaResultMapper result = new JpaResultMapper();
 //        Query query = entityManager.createNativeQuery("SELECT m.m_name, m.main_img, p.weight FROM mountain m left join plovo p on m.id = p.mountain_id");
-        Query query = entityManager.createNativeQuery("SELECT m.m_name as mName, m.main_img as mImage, p.weight as weight FROM mountain m left join plovo p on m.id = p.mountain_id WHERE m.m_name like :mName")
-              .setParameter("mName", mName);
+        Query query = entityManager.createNativeQuery("SELECT m.m_name as mName, m.main_img as mImage, p.weight as weight, p.current_weight as distance, p.current_weight as time FROM mountain m left join plovo p on m.id = p.mountain_id WHERE m.m_name like :mName")
+                .setParameter("mName", "%"+mName+"%");
         List<GetMountainRes> getMountainRes = result.list(query, GetMountainRes.class);
         return getMountainRes;
     }
