@@ -2,6 +2,7 @@ package com.kb_hackathon.plovo.service;
 
 import com.kb_hackathon.plovo.dto.BestPloggerRes;
 import com.kb_hackathon.plovo.dto.GetMountainRes;
+import com.kb_hackathon.plovo.dto.PlogMountainInfoRes;
 import com.kb_hackathon.plovo.dto.SocialRes;
 import com.kb_hackathon.plovo.repository.EntityManagerQuery;
 import com.kb_hackathon.plovo.repository.UserRecordRepository;
@@ -19,7 +20,7 @@ public class SocialService {
 
     public SocialRes social() {
 
-        List<GetMountainRes> recentPlog = entityManagerQuery.recentPlog();
+        List<PlogMountainInfoRes> recentPlog = entityManagerQuery.recentPlogInfo();
         List<BestPloggerRes> bestPlogger = entityManagerQuery.bestPlogger();
 
         SocialRes socialRes = SocialRes.builder()

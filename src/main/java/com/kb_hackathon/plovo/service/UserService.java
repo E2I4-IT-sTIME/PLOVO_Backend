@@ -4,6 +4,7 @@ import com.kb_hackathon.plovo.config.S3Uploader;
 import com.kb_hackathon.plovo.domain.User;
 import com.kb_hackathon.plovo.dto.RecordRes;
 import com.kb_hackathon.plovo.dto.TimeAndWeightRes;
+import com.kb_hackathon.plovo.dto.UserUploadImgRes;
 import com.kb_hackathon.plovo.repository.EntityManagerQuery;
 import com.kb_hackathon.plovo.repository.UserRecordRepository;
 import com.kb_hackathon.plovo.repository.UserRepository;
@@ -41,11 +42,13 @@ public class UserService {
         Optional<User> user = userRepository.findById(user_id);
 
         List<TimeAndWeightRes> timeAndWeightRes = entityManagerQuery.timeAndWeight(user.get().getId());
+        List<UserUploadImgRes> userUploadImgRes = entityManagerQuery.userUploadImg(user.get().getId());
 
         RecordRes recordRes = RecordRes.builder()
                 .username(user.get().getUsername())
                 .profileImg(user.get().getProfile_img())
                 .timeAndWeightRes(timeAndWeightRes)
+                .userUploadImgRes(userUploadImgRes)
                 .build();
 
         return recordRes;
