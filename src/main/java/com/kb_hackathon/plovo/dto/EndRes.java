@@ -22,5 +22,4 @@ public class EndRes {
     private String weight;
     @ApiModelProperty(value = "6개월치 무게 수치")
     private List<MonthAndWeightRes> monthAndWeightRes; // 6개월치 무게 수치
-    private String image;
 }
