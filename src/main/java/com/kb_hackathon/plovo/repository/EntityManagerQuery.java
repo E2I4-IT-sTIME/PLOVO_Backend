@@ -44,7 +44,7 @@ public class EntityManagerQuery {
 
     public List<TimeAndWeightRes> timeAndWeight(Long user_id) {
         JpaResultMapper result = new JpaResultMapper();
-        Query query = entityManager.createNativeQuery("SELECT MONTH(u.date) as month, DAY(u.date) as day, u.time as time, abs(u.weight) as weight FROM user_record u WHERE u.user_id =:user_id and u.date BETWEEN DATE_ADD(NOW(),INTERVAL -6 DAY) AND NOW()")
+        Query query = entityManager.createNativeQuery("SELECT MONTH(u.date) as month, DAY(u.date) as day, u.time as time, u.weight as weight FROM user_record u WHERE u.user_id =:user_id and u.date BETWEEN DATE_ADD(NOW(),INTERVAL -6 DAY) AND NOW();")
                 .setParameter("user_id", user_id);;
         List<TimeAndWeightRes> timeAndWeightRes = result.list(query, TimeAndWeightRes.class);
         return timeAndWeightRes;
@@ -69,6 +69,22 @@ public class EntityManagerQuery {
         Query query = entityManager.createNativeQuery("SELECT u.username, u.profile_img FROM user_record ur JOIN user u ON ur.user_id = u.id GROUP BY u.id ORDER BY COUNT(*) DESC LIMIT 6;");
         List<BestPloggerRes> bestPloggerRes = result.list(query, BestPloggerRes.class);
         return bestPloggerRes;
+    }
+
+    public List<PlogMountainInfoRes> recentPlogInfo() {
+        JpaResultMapper result = new JpaResultMapper();
+        Query query = entityManager.createNativeQuery("SELECT m.m_name as mName, m.main_img as mImage, u.weight as weight, m.distance as distance, u.time as time FROM user_record u left outer join plovo p on u.plovo_id = p.id left join mountain m on p.mountain_id = m.id ORDER BY u.date DESC LIMIT 3;");
+        List<PlogMountainInfoRes> plogMountainInfoRes = result.list(query, PlogMountainInfoRes.class);
+
+        return plogMountainInfoRes;
+    }
+
+    public List<UserUploadImgRes> userUploadImg(Long user_id) {
+        JpaResultMapper result = new JpaResultMapper();
+        Query query = entityManager.createNativeQuery("SELECT u.end_image FROM user_record u WHERE u.user_id =:user_id")
+                .setParameter("user_id", user_id);;
+        List<UserUploadImgRes> userUploadImgRes = result.list(query, UserUploadImgRes.class);
+        return userUploadImgRes;
     }
 
 }
