@@ -11,4 +11,5 @@ import java.util.List;
 public class LoginRes {
     private String jwtToken;
     private Boolean isExist;
+    private Long userId;
 }

@@ -146,7 +146,8 @@ public class AuthService {
 
         LoginRes loginRes = LoginRes.builder()
                 .jwtToken(jwtToken)
-                .isExist(isExist).build();
+                .isExist(isExist)
+                .userId(user.getId()).build();
         return loginRes;
     }
 }
