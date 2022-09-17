@@ -25,10 +25,27 @@ public class SocialService {
 
     public SocialRes social() {
 
-        List<PlogMountainInfoRes> recentPlog = entityManagerQuery.recentPlogInfo();
+        List<PlogMountainInfoRes> recentPlog1 = entityManagerQuery.recentPlogInfo("광교산");
+        List<PlogMountainInfoRes> recentPlog2 = entityManagerQuery.recentPlogInfo("수리산");
+        List<PlogMountainInfoRes> recentPlog3 = entityManagerQuery.recentPlogInfo("불곡산");
+
+
+
         List<BestPloggerRes> bestPlogger = entityManagerQuery.bestPlogger();
 
-        for (PlogMountainInfoRes info : recentPlog){
+        for (PlogMountainInfoRes info : recentPlog1){
+            if (info.getUploadImg() == null){
+                info.setUploadImg("https://plovo.s3.ap-northeast-2.amazonaws.com/KakaoTalk_20220918_032111258.png");
+            }
+        }
+
+        for (PlogMountainInfoRes info : recentPlog2){
+            if (info.getUploadImg() == null){
+                info.setUploadImg("https://plovo.s3.ap-northeast-2.amazonaws.com/KakaoTalk_20220918_032111258.png");
+            }
+        }
+
+        for (PlogMountainInfoRes info : recentPlog3){
             if (info.getUploadImg() == null){
                 info.setUploadImg("https://plovo.s3.ap-northeast-2.amazonaws.com/KakaoTalk_20220918_032111258.png");
             }
@@ -41,7 +58,9 @@ public class SocialService {
         }
 
         SocialRes socialRes = SocialRes.builder()
-                .recentPlog(recentPlog)
+                .recentPlog1(recentPlog1)
+                .recentPlog2(recentPlog2)
+                .recentPlog3(recentPlog3)
                 .bestPlogger(bestPlogger).build();
 
         return socialRes;
