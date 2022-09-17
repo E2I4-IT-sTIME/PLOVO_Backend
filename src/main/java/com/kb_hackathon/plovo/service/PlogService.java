@@ -97,7 +97,7 @@ public class PlogService {
 
     }
 
-    public EndRes end(Long userRecord_id, MultipartFile multipartFile) throws IOException {
+    public EndRes end(Long userRecord_id) {
         Optional<UserRecord> userRecord = userRecordRepository.findById(userRecord_id);
         Optional<Plovo> plovo = plovoRepository.findById(userRecord.get().getPlovoId());
         Optional<Mountain> mountain = mountainRepository.findById(plovo.get().getMountain().getId());
@@ -106,8 +106,6 @@ public class PlogService {
 
         System.out.println("weights : " + monthAndWeightRes);
 
-        String r = s3Uploader.uploadRecord(userRecord_id, multipartFile, "end");
-        System.out.println(r);
 
         EndRes endRes = EndRes.builder()
                 .m_name(plovo.get().getMountain().getMName())
@@ -115,10 +113,19 @@ public class PlogService {
                 .distance(plovo.get().getMountain().getDistance())
                 .time(userRecord.get().getTime())
                 .weight(userRecord.get().getWeight())
-                .monthAndWeightRes(monthAndWeightRes)
-                .image(userRecord.get().getEnd_image()).build();
+                .monthAndWeightRes(monthAndWeightRes).build();
 
         return endRes;
+    }
+
+    @Transactional
+    public String endImage(Long userRecord_id, MultipartFile multipartFile) throws IOException{
+        Optional<UserRecord> userRecord = userRecordRepository.findById(userRecord_id);
+
+        String r = s3Uploader.uploadRecord(userRecord_id, multipartFile, "end");
+        System.out.println(r);
+
+        return userRecord.get().getEnd_image();
     }
 
 }

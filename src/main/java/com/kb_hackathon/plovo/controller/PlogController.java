@@ -60,7 +60,15 @@ public class PlogController {
     @GetMapping("/auth/plog/end")
     @ApiOperation(value = "플로깅 종료 API")
     @ApiImplicitParam(name = "userRecord_id", value = "userRecord 아이디", required = true, dataType = "long")
-    public EndRes end(@RequestParam(value = "userRecord_id") Long userRecord_id, @RequestPart(value = "image") MultipartFile multipartFile) throws IOException {
-        return plogService.end(userRecord_id, multipartFile);
+    public EndRes end(@RequestParam(value = "userRecord_id") Long userRecord_id) {
+        return plogService.end(userRecord_id);
     }
+
+    @PostMapping("/auth/plog/image")
+    @ApiOperation(value = "플로깅 종료 사진 API")
+    @ApiImplicitParam(name = "userRecord_id", value = "userRecord 아이디", required = true, dataType = "long")
+    public String endImage(@RequestParam(value = "userRecord_id") Long userRecord_id, @RequestPart(value = "image") MultipartFile multipartFile) throws IOException{
+        return plogService.endImage(userRecord_id, multipartFile);
+    }
+
 }
