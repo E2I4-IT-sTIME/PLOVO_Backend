@@ -24,4 +24,6 @@ public class GetPlovoMountainRes {
     private String distance;
     @ApiModelProperty(value = "플로보 무게", example = "0")
     private String plovoWeight;
+    @ApiModelProperty(value = "플로보 id")
+    private Long plovoId;
 }

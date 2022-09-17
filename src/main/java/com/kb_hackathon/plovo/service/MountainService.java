@@ -69,7 +69,8 @@ public class MountainService {
                 .mapImg(mountain.getMapImg())
                 .distance(mountain.getDistance())
                 .plovoWeight(mountain.getPlovo().getWeight())
-                .userRecord_id(userRecord.getId()).build();
+                .userRecord_id(userRecord.getId())
+                .plovoId(plovo.getId()).build();
 
         return getPlovoMountainRes;
 

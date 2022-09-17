@@ -37,7 +37,7 @@ public class AuthController {
 //        // 액세스 토큰 발급 완료
 //
 //        // 발급 받은 accessToken 으로 카카오 서버에 회원정보 요청 후 DB에 저장
-//        String jwtToken = authService.saveUser(accessTokenRes.getAccess_token());
+//        String jwtToken = String.valueOf(authService.saveUser(accessTokenRes.getAccess_token()));
 //
 //        System.out.println("access_token : " + accessTokenRes.getAccess_token());
 //        System.out.println("jwtToken : Bearer " + jwtToken);
