@@ -12,11 +12,10 @@ import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.Authentication;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
 import java.util.List;
 
 @RestController
@@ -61,7 +60,7 @@ public class PlogController {
     @GetMapping("/auth/plog/end")
     @ApiOperation(value = "플로깅 종료 API")
     @ApiImplicitParam(name = "userRecord_id", value = "userRecord 아이디", required = true, dataType = "long")
-    public EndRes end(@RequestParam(value = "userRecord_id") Long userRecord_id) {
-        return plogService.end(userRecord_id);
+    public EndRes end(@RequestParam(value = "userRecord_id") Long userRecord_id, @RequestPart(value = "image") MultipartFile multipartFile) throws IOException {
+        return plogService.end(userRecord_id, multipartFile);
     }
 }

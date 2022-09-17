@@ -4,6 +4,8 @@ import com.amazonaws.services.s3.AmazonS3Client;
 import com.amazonaws.services.s3.model.CannedAccessControlList;
 import com.amazonaws.services.s3.model.PutObjectRequest;
 import com.kb_hackathon.plovo.domain.User;
+import com.kb_hackathon.plovo.domain.UserRecord;
+import com.kb_hackathon.plovo.repository.UserRecordRepository;
 import com.kb_hackathon.plovo.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -24,6 +26,7 @@ public class S3Uploader {
 
     private final AmazonS3Client amazonS3Client;
     private final UserRepository userRepository;
+    private final UserRecordRepository userRecordRepository;
 
     @Value("${cloud.aws.s3.bucket}")
     private String bucket;
@@ -45,6 +48,25 @@ public class S3Uploader {
         removeNewFile(uploadFile);
 
         return "유저 사진 저장 성공";
+    }
+
+    public String uploadRecord(Long userRecordId, MultipartFile multipartFile, String dirName) throws IOException {
+        File uploadFile = convert(multipartFile)
+                .orElseThrow(() -> new IllegalArgumentException("MultipartFile -> File로 전환이 실패했습니다."));
+        return uploadRecord(userRecordId, uploadFile, dirName);
+    }
+
+    // s3로 파일 업로드하기
+    private String uploadRecord(Long userRecordId, File uploadFile, String dirName) {
+        String fileName = dirName + "/" + UUID.randomUUID() + uploadFile.getName();   // S3에 저장된 파일 이름
+        String uploadImageUrl = putS3(uploadFile, fileName); // s3로 업로드
+
+        Optional<UserRecord> userRecord = userRecordRepository.findById(userRecordId);
+        userRecord.get().setEnd_image(uploadImageUrl);
+        userRecordRepository.save(userRecord.get());
+        removeNewFile(uploadFile);
+
+        return "플로깅 종료 사진 등록 완료";
     }
 
     // 업로드하기
