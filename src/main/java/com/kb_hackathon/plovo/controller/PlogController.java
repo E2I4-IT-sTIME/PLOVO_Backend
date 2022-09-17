@@ -52,7 +52,7 @@ public class PlogController {
     // 플로보 위치 확인 api
     @GetMapping("/auth/plog/site")
     @ApiOperation(value = "플로보 위치 확인 API")
-    @ApiImplicitParam(name = "plovo_id", value = "userRecord 아이디", required = true, dataType = "long")
+    @ApiImplicitParam(name = "plovo_id", value = "plovo 아이디", required = true, dataType = "long")
     public String plovoSite(@RequestParam(value = "plovo_id") Long plovo_id) {
         return plogService.plovoSite(plovo_id);
     }
@@ -60,7 +60,7 @@ public class PlogController {
     // 종료 api
     @GetMapping("/auth/plog/end")
     @ApiOperation(value = "플로깅 종료 API")
-    @ApiImplicitParam(name = "userRecord_id", value = "플로보 아이디", required = true, dataType = "long")
+    @ApiImplicitParam(name = "userRecord_id", value = "userRecord 아이디", required = true, dataType = "long")
     public EndRes end(@RequestParam(value = "userRecord_id") Long userRecord_id) {
         return plogService.end(userRecord_id);
     }
