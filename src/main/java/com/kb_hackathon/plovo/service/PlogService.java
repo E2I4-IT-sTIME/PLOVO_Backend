@@ -1,5 +1,6 @@
 package com.kb_hackathon.plovo.service;
 
+import com.kb_hackathon.plovo.config.S3Uploader;
 import com.kb_hackathon.plovo.domain.Mountain;
 import com.kb_hackathon.plovo.domain.Plovo;
 import com.kb_hackathon.plovo.domain.UserRecord;
@@ -11,9 +12,11 @@ import com.kb_hackathon.plovo.repository.PlovoRepository;
 import com.kb_hackathon.plovo.repository.UserRecordRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.transaction.Transactional;
 import javax.xml.stream.events.EntityDeclaration;
+import java.io.IOException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.*;
@@ -26,6 +29,8 @@ public class PlogService {
     private final PlovoRepository plovoRepository;
     private final MountainRepository mountainRepository;
     private final EntityManagerQuery entityManagerQuery;
+    private final S3Uploader s3Uploader;
+
 
     // 플로보로부터 무게 받아오기 (ex 아두이노)
 //    @Transactional
@@ -92,7 +97,7 @@ public class PlogService {
 
     }
 
-    public EndRes end(Long userRecord_id) {
+    public EndRes end(Long userRecord_id, MultipartFile multipartFile) throws IOException {
         Optional<UserRecord> userRecord = userRecordRepository.findById(userRecord_id);
         Optional<Plovo> plovo = plovoRepository.findById(userRecord.get().getPlovoId());
         Optional<Mountain> mountain = mountainRepository.findById(plovo.get().getMountain().getId());
@@ -101,13 +106,17 @@ public class PlogService {
 
         System.out.println("weights : " + monthAndWeightRes);
 
+        String r = s3Uploader.uploadRecord(userRecord_id, multipartFile, "end");
+        System.out.println(r);
+
         EndRes endRes = EndRes.builder()
                 .m_name(plovo.get().getMountain().getMName())
                 .date(userRecord.get().getDate().toString())
                 .distance(plovo.get().getMountain().getDistance())
                 .time(userRecord.get().getTime())
                 .weight(userRecord.get().getWeight())
-                .monthAndWeightRes(monthAndWeightRes).build();
+                .monthAndWeightRes(monthAndWeightRes)
+                .image(userRecord.get().getEnd_image()).build();
 
         return endRes;
     }
