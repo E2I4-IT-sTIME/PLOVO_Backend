@@ -71,9 +71,10 @@ public class EntityManagerQuery {
         return bestPloggerRes;
     }
 
-    public List<PlogMountainInfoRes> recentPlogInfo() {
+    public List<PlogMountainInfoRes> recentPlogInfo(String mName) {
         JpaResultMapper result = new JpaResultMapper();
-        Query query = entityManager.createNativeQuery("SELECT m.m_name as mName, u.end_image as uploadImg, u.weight as weight, m.distance as distance, u.time as time, user.profile_img as userProfile FROM user_record u left outer join user on user.id=u.user_id left outer join plovo p on u.plovo_id = p.id left join mountain m on p.mountain_id = m.id GROUP BY m.m_name ORDER BY u.date DESC LIMIT 3;");
+        Query query = entityManager.createNativeQuery("SELECT m.m_name as mName, u.end_image as uploadImg, u.weight as weight, m.distance as distance, u.time as time, user.profile_img as userProfile FROM user_record u left outer join user on user.id=u.user_id left outer join plovo p on u.plovo_id = p.id left join mountain m on p.mountain_id = m.id WHERE m.m_name=:mName ORDER BY u.date DESC LIMIT 5;")
+                .setParameter("mName", mName);
         List<PlogMountainInfoRes> plogMountainInfoRes = result.list(query, PlogMountainInfoRes.class);
 
         return plogMountainInfoRes;
