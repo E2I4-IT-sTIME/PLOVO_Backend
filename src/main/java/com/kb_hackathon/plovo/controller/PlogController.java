@@ -53,7 +53,7 @@ public class PlogController {
     @GetMapping("/auth/plog/site")
     @ApiOperation(value = "플로보 위치 확인 API")
     @ApiImplicitParam(name = "plovo_id", value = "plovo 아이디", required = true, dataType = "long")
-    public String plovoSite(@RequestParam(value = "plovo_id") Long plovo_id) {
+    public List<String> plovoSite(@RequestParam(value = "plovo_id") Long plovo_id) {
         return plogService.plovoSite(plovo_id);
     }
 
