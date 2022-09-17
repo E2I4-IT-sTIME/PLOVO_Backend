@@ -16,10 +16,7 @@ import javax.transaction.Transactional;
 import javax.xml.stream.events.EntityDeclaration;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
-import java.util.List;
-import java.util.Map;
-import java.util.Optional;
-import java.util.Random;
+import java.util.*;
 
 @Service
 @RequiredArgsConstructor
@@ -66,10 +63,33 @@ public class PlogService {
         return userRecord.get().getWeight();
     }
 
-    public String plovoSite(Long plovo_id) {
+    public List<String> plovoSite(Long plovo_id) {
         Optional<Plovo> plovo = plovoRepository.findById(plovo_id);
 
-        return plovo.get().getImg();
+        List<String> imgList = new ArrayList<>();
+        imgList.add(plovo.get().getImg());
+
+        if (Objects.equals(plovo.get().getMountain().getMName(), "광교산")) {
+            imgList.add("https://plovo.s3.ap-northeast-2.amazonaws.com/mountain/%EA%B4%91%EA%B5%901.jpeg");
+            imgList.add("https://plovo.s3.ap-northeast-2.amazonaws.com/mountain/%EA%B4%91%EA%B5%902.jpeg");
+            imgList.add("https://plovo.s3.ap-northeast-2.amazonaws.com/mountain/%EA%B4%91%EA%B5%903.png");
+            imgList.add("https://plovo.s3.ap-northeast-2.amazonaws.com/mountain/%EA%B4%91%EA%B5%90%EC%82%B0.jfif");
+            return imgList;
+        } else if (Objects.equals(plovo.get().getMountain().getMName(), "수리산")) {
+            imgList.add("https://plovo.s3.ap-northeast-2.amazonaws.com/mountain/%EC%88%98%EB%A6%AC1.jpg");
+            imgList.add("https://plovo.s3.ap-northeast-2.amazonaws.com/mountain/%EC%88%98%EB%A6%AC2.jpg");
+            imgList.add("https://plovo.s3.ap-northeast-2.amazonaws.com/mountain/%EC%88%98%EB%A6%AC3.jpg");
+            imgList.add("https://plovo.s3.ap-northeast-2.amazonaws.com/mountain/%EC%88%98%EB%A6%AC%EC%82%B0.png");
+            return imgList;
+        } else if (Objects.equals(plovo.get().getMountain().getMName(), "도덕산") || Objects.equals(plovo.get().getMountain().getMName(), "불곡산") || Objects.equals(plovo.get().getMountain().getMName(), "천마산")) {
+            imgList.add("https://plovo.s3.ap-northeast-2.amazonaws.com/mountain/%EB%8F%84%EB%8D%951.jpeg");
+            imgList.add("https://plovo.s3.ap-northeast-2.amazonaws.com/mountain/%EB%8F%84%EB%8D%952.jpeg");
+            imgList.add("https://plovo.s3.ap-northeast-2.amazonaws.com/mountain/%EB%8F%84%EB%8D%953.jpeg");
+            imgList.add("https://plovo.s3.ap-northeast-2.amazonaws.com/mountain/%EB%8F%84%EB%8D%95%EC%82%B0.png");
+            return imgList;
+        }
+        return null;
+
     }
 
     public EndRes end(Long userRecord_id) {
