@@ -44,7 +44,7 @@ public class EntityManagerQuery {
 
     public List<TimeAndWeightRes> timeAndWeight(Long user_id) {
         JpaResultMapper result = new JpaResultMapper();
-        Query query = entityManager.createNativeQuery("SELECT MONTH(u.date) as month, DAY(u.date) as day, u.time as time, u.weight as weight FROM user_record u WHERE u.user_id =:user_id and u.date BETWEEN DATE_ADD(NOW(),INTERVAL -6 DAY) AND NOW();")
+        Query query = entityManager.createNativeQuery("SELECT MONTH(u.date) as month, SUM(HOUR(u.time)*60 + MINUTE(u.time)) as time, SUM(u.weight) as weight FROM user_record u WHERE u.user_id =:user_id and u.date BETWEEN DATE_ADD(NOW(),INTERVAL -6 MONTH) AND NOW() GROUP BY MONTH(u.date) ORDER BY MONTH(u.date) DESC LIMIT 6;")
                 .setParameter("user_id", user_id);
         List<TimeAndWeightRes> timeAndWeightRes = result.list(query, TimeAndWeightRes.class);
         return timeAndWeightRes;
@@ -81,7 +81,7 @@ public class EntityManagerQuery {
 
     public List<UserUploadImgRes> userUploadImg(Long user_id) {
         JpaResultMapper result = new JpaResultMapper();
-        Query query = entityManager.createNativeQuery("SELECT u.end_image FROM user_record u WHERE u.user_id =:user_id")
+        Query query = entityManager.createNativeQuery("SELECT u.end_image as uploadImg, u.date as date, u.distance as distance, u.time as time, u.weight as weight, m.m_name as mName, user.profile_img as profileImg FROM user_record u left outer join user on u.user_id=user.id left outer join plovo p on u.plovo_id=p.id left outer join mountain m on p.mountain_id=m.id WHERE u.user_id =:user_id")
                 .setParameter("user_id", user_id);;
         List<UserUploadImgRes> userUploadImgRes = result.list(query, UserUploadImgRes.class);
         return userUploadImgRes;
