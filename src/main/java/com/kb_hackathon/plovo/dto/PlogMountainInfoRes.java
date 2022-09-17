@@ -16,7 +16,7 @@ import javax.persistence.Column;
 @NoArgsConstructor
 public class PlogMountainInfoRes {
     private String mName;  // 산 이름
-    private String mImage;  // 산 이미지
+    private String uploadImg;  // 산 이미지
     private String distance; // 산 거리
     private String time; // 플로깅 시간
     private String weight; // 플로깅 무게
