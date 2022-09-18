@@ -82,7 +82,7 @@ public class EntityManagerQuery {
 
     public List<UserUploadImgRes> userUploadImg(Long user_id) {
         JpaResultMapper result = new JpaResultMapper();
-        Query query = entityManager.createNativeQuery("SELECT u.end_image as uploadImg, u.date as date, u.distance as distance, u.time as time, u.weight as weight, m.m_name as mName, user.profile_img as profileImg FROM user_record u left outer join user on u.user_id=user.id left outer join plovo p on u.plovo_id=p.id left outer join mountain m on p.mountain_id=m.id WHERE u.user_id =:user_id")
+        Query query = entityManager.createNativeQuery("SELECT u.end_image as uploadImg, u.date as date, m.distance as distance, u.time as time, u.weight as weight, m.m_name as mName, user.profile_img as profileImg FROM user_record u left outer join user on u.user_id=user.id left outer join plovo p on u.plovo_id=p.id left outer join mountain m on p.mountain_id=m.id WHERE u.user_id =:user_id")
                 .setParameter("user_id", user_id);;
         List<UserUploadImgRes> userUploadImgRes = result.list(query, UserUploadImgRes.class);
         return userUploadImgRes;
